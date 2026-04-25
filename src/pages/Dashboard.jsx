@@ -33,7 +33,8 @@ function Dashboard() {
           nome,
           unidade,
           descricao,
-          stock_minimo
+          stock_minimo,
+          ativo
         )
       `)
       .order('criado_em', { ascending: false })
@@ -50,6 +51,7 @@ function Dashboard() {
     ;(movimentos || []).forEach((movimento) => {
       const quantidade = Number(movimento.quantidade)
       const material = movimento.materiais
+      if (!material || material.ativo === false) return
       if (!material) return
 
       if (!stockPorMaterial[material.id]) {
@@ -155,13 +157,13 @@ function Dashboard() {
         <div style={styles.dashboardColumn}>
           <div style={styles.twoStatsGrid}>
             <div style={styles.miniStatCard}>
-              <p style={styles.miniStatLabel}>Sala 1</p>
+              <p style={styles.miniStatLabel}>Sala DSTI</p>
               <h3 style={styles.miniStatValue}>{dados.totalSala1}</h3>
               <p style={styles.miniStatText}>Quantidade total atual</p>
             </div>
 
             <div style={styles.miniStatCard}>
-              <p style={styles.miniStatLabel}>Sala 2</p>
+              <p style={styles.miniStatLabel}>Armazem</p>
               <h3 style={styles.miniStatValue}>{dados.totalSala2}</h3>
               <p style={styles.miniStatText}>Quantidade total atual</p>
             </div>

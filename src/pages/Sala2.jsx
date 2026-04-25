@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../Lib/supabase'
 import InventarioLista from '../components/InventarioLista'
-import AcoesSala from '../components/AcoesSala'
-import { styles } from '../styles/styles'
 
 function Sala2() {
   const [inventario, setInventario] = useState([])
@@ -62,16 +60,12 @@ function Sala2() {
   }
 
   return (
-    <div style={styles.pageContent}>
-      <AcoesSala
-        salaAtualId={2}
-        outraSalaId={1}
-        materiaisDaSala={inventario}
-        aoAtualizar={carregarInventario}
-      />
-
-      <InventarioLista lista={inventario} nomeSala="Inventário da Sala 2" />
-    </div>
+    <InventarioLista
+      lista={inventario}
+      nomeSala="Inventário do Armazem"
+      salaId={2}
+      onAtualizar={carregarInventario}
+    />
   )
 }
 

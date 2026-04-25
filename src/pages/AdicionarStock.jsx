@@ -28,6 +28,7 @@ function AdicionarStock() {
     const { data, error } = await supabase
       .from('materiais')
       .select('*')
+      .eq('ativo', true)
       .order('nome', { ascending: true })
 
     if (error) {

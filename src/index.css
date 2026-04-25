@@ -11,4 +11,9 @@ body {
   margin: 0;
   font-family: Inter, Arial, sans-serif;
   color: #0f172a;
+  background: #f8fbff;
+}
+
+a {
+  color: inherit;
 }

@@ -19,6 +19,7 @@ function Materiais() {
     const { data: materiaisData, error: materiaisError } = await supabase
       .from('materiais')
       .select('*')
+      .eq('ativo', true)
       .order('nome', { ascending: true })
 
     if (materiaisError) {

@@ -2,28 +2,28 @@ export const styles = {
   app: {
     minHeight: '100vh',
     background: `
-      radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 28%),
-      radial-gradient(circle at top right, rgba(16,185,129,0.12), transparent 22%),
-      linear-gradient(180deg, #f8fbff 0%, #eef4ff 45%, #f6f8fc 100%)
+      radial-gradient(circle at top left, rgba(59,130,246,0.20), transparent 24%),
+      radial-gradient(circle at top right, rgba(16,185,129,0.12), transparent 20%),
+      linear-gradient(180deg, #f8fbff 0%, #eef4ff 45%, #f7f9fc 100%)
     `,
     color: '#0f172a',
     fontFamily: 'Inter, Arial, sans-serif',
   },
 
   navbar: {
-    backgroundColor: 'rgba(255,255,255,0.72)',
+    backgroundColor: 'rgba(255,255,255,0.78)',
     backdropFilter: 'blur(18px)',
     WebkitBackdropFilter: 'blur(18px)',
-    borderBottom: '1px solid rgba(148,163,184,0.18)',
-    padding: '18px 34px',
+    borderBottom: '1px solid rgba(148,163,184,0.16)',
+    padding: '18px 30px',
     display: 'grid',
     gridTemplateColumns: '1fr auto auto',
     alignItems: 'center',
     gap: '20px',
     position: 'sticky',
     top: 0,
-    zIndex: 20,
-    boxShadow: '0 10px 30px rgba(15,23,42,0.05)',
+    zIndex: 40,
+    boxShadow: '0 10px 28px rgba(15,23,42,0.06)',
   },
 
   navbarBrand: {
@@ -65,24 +65,24 @@ export const styles = {
   },
 
   navButton: {
-    padding: '10px 16px',
+    padding: '11px 17px',
     borderRadius: '14px',
-    border: '1px solid rgba(59,130,246,0.14)',
-    backgroundColor: 'rgba(255,255,255,0.78)',
+    border: '1px solid rgba(59,130,246,0.12)',
+    backgroundColor: 'rgba(255,255,255,0.86)',
     cursor: 'pointer',
     fontWeight: '700',
     textDecoration: 'none',
     color: '#1d4ed8',
     boxShadow: '0 6px 18px rgba(37,99,235,0.08)',
-    transition: 'all 0.2s ease',
     whiteSpace: 'nowrap',
+    transition: 'all 0.2s ease',
   },
 
   navButtonActive: {
     background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
     color: '#ffffff',
     border: '1px solid #2563eb',
-    boxShadow: '0 14px 28px rgba(37,99,235,0.28)',
+    boxShadow: '0 14px 28px rgba(37,99,235,0.24)',
   },
 
   dropdown: {
@@ -105,13 +105,13 @@ export const styles = {
     position: 'absolute',
     top: 'calc(100% + 10px)',
     left: 0,
-    minWidth: '180px',
+    minWidth: '190px',
     backgroundColor: 'rgba(255,255,255,0.98)',
     border: '1px solid rgba(226,232,240,0.95)',
     borderRadius: '18px',
     boxShadow: '0 18px 40px rgba(15,23,42,0.12)',
     padding: '10px',
-    zIndex: 30,
+    zIndex: 50,
   },
 
   dropdownItem: {
@@ -130,9 +130,9 @@ export const styles = {
   },
 
   container: {
-    maxWidth: '1280px',
+    maxWidth: '1320px',
     margin: '0 auto',
-    padding: '34px 22px 50px 22px',
+    padding: '32px 22px 54px 22px',
   },
 
   pageContent: {
@@ -142,12 +142,12 @@ export const styles = {
   },
 
   sectionHeader: {
-    marginBottom: '4px',
+    marginBottom: '6px',
   },
 
   title: {
     margin: 0,
-    fontSize: '44px',
+    fontSize: '46px',
     fontWeight: '900',
     color: '#0f172a',
     letterSpacing: '-1px',
@@ -157,7 +157,7 @@ export const styles = {
     marginTop: '10px',
     color: '#64748b',
     fontSize: '16px',
-    lineHeight: 1.6,
+    lineHeight: 1.65,
     maxWidth: '760px',
   },
 
@@ -167,14 +167,14 @@ export const styles = {
     alignItems: 'center',
     gap: '24px',
     flexWrap: 'wrap',
-    padding: '34px',
-    borderRadius: '30px',
+    padding: '38px',
+    borderRadius: '32px',
     background: `
       radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 28%),
-      linear-gradient(135deg, #0f172a 0%, #1d4ed8 55%, #2563eb 100%)
+      linear-gradient(135deg, #0f172a 0%, #1e40af 45%, #2563eb 100%)
     `,
     color: '#ffffff',
-    boxShadow: '0 30px 70px rgba(29,78,216,0.22)',
+    boxShadow: '0 28px 70px rgba(29,78,216,0.22)',
     border: '1px solid rgba(255,255,255,0.08)',
   },
 
@@ -183,15 +183,15 @@ export const styles = {
     fontSize: '12px',
     fontWeight: '800',
     letterSpacing: '2px',
-    opacity: 0.8,
+    opacity: 0.84,
   },
 
   heroTitle: {
     margin: 0,
-    fontSize: '52px',
+    fontSize: '54px',
     fontWeight: '900',
     letterSpacing: '-1.5px',
-    lineHeight: 1.05,
+    lineHeight: 1.03,
   },
 
   heroSubtitle: {
@@ -199,7 +199,7 @@ export const styles = {
     maxWidth: '760px',
     fontSize: '17px',
     lineHeight: 1.7,
-    color: 'rgba(255,255,255,0.86)',
+    color: 'rgba(255,255,255,0.88)',
   },
 
   heroActions: {
@@ -216,19 +216,19 @@ export const styles = {
     padding: '13px 20px',
     borderRadius: '16px',
     fontWeight: '800',
-    boxShadow: '0 14px 28px rgba(0,0,0,0.18)',
+    boxShadow: '0 14px 28px rgba(0,0,0,0.16)',
   },
 
   secondaryButtonLink: {
     display: 'inline-block',
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    color: '#ffffff',
+    backgroundColor: '#eff6ff',
+    color: '#1d4ed8',
     textDecoration: 'none',
-    padding: '13px 20px',
-    borderRadius: '16px',
+    padding: '10px 14px',
+    borderRadius: '12px',
     fontWeight: '800',
-    border: '1px solid rgba(255,255,255,0.18)',
-    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08)',
+    border: '1px solid #bfdbfe',
+    boxShadow: '0 8px 18px rgba(59,130,246,0.08)',
   },
 
   dashboardHighlightGrid: {
@@ -238,7 +238,7 @@ export const styles = {
   },
 
   highlightCard: {
-    borderRadius: '24px',
+    borderRadius: '26px',
     padding: '24px',
     color: '#ffffff',
     boxShadow: '0 18px 40px rgba(15,23,42,0.10)',
@@ -266,7 +266,7 @@ export const styles = {
     margin: '0 0 10px 0',
     fontSize: '14px',
     fontWeight: '800',
-    opacity: 0.92,
+    opacity: 0.95,
   },
 
   highlightValue: {
@@ -287,7 +287,7 @@ export const styles = {
   highlightText: {
     marginTop: '10px',
     fontSize: '14px',
-    opacity: 0.92,
+    opacity: 0.94,
     lineHeight: 1.5,
   },
 
@@ -310,7 +310,7 @@ export const styles = {
   },
 
   miniStatCard: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.96) 100%)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
     borderRadius: '24px',
     padding: '24px',
     boxShadow: '0 18px 40px rgba(15,23,42,0.07)',
@@ -360,7 +360,7 @@ export const styles = {
   },
 
   formCard: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(248,250,252,0.97) 100%)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
     borderRadius: '28px',
     padding: '30px',
     boxShadow: '0 22px 50px rgba(15,23,42,0.08)',
@@ -426,7 +426,7 @@ export const styles = {
   },
 
   infoBox: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.96) 100%)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
     borderRadius: '28px',
     padding: '26px',
     boxShadow: '0 20px 45px rgba(15,23,42,0.07)',
@@ -467,7 +467,7 @@ export const styles = {
   },
 
   card: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(248,250,252,0.95) 100%)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
     borderRadius: '26px',
     padding: '24px',
     boxShadow: '0 18px 38px rgba(15,23,42,0.07)',
@@ -529,7 +529,7 @@ export const styles = {
   },
 
   emptyBox: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(248,250,252,0.94) 100%)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.95) 100%)',
     borderRadius: '28px',
     padding: '40px',
     textAlign: 'center',
@@ -586,4 +586,96 @@ export const styles = {
     backgroundColor: '#fee2e2',
     color: '#991b1b',
   },
+
+  quickActionBox: {
+  marginTop: '18px',
+  paddingTop: '16px',
+  borderTop: '1px solid rgba(226,232,240,0.9)',
+},
+
+quickActionLabel: {
+  display: 'block',
+  marginBottom: '8px',
+  fontSize: '13px',
+  fontWeight: '800',
+  color: '#64748b',
+},
+
+quickActionRow: {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+},
+
+quickQuantityInput: {
+  width: '90px',
+  padding: '10px 12px',
+  borderRadius: '14px',
+  border: '1px solid #cbd5e1',
+  backgroundColor: '#f8fbff',
+  fontSize: '14px',
+  fontWeight: '700',
+  color: '#0f172a',
+  outline: 'none',
+},
+
+plusButton: {
+  width: '44px',
+  height: '44px',
+  borderRadius: '14px',
+  border: 'none',
+  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+  color: '#ffffff',
+  fontSize: '24px',
+  fontWeight: '900',
+  cursor: 'pointer',
+  boxShadow: '0 12px 22px rgba(16,185,129,0.22)',
+},
+
+minusButton: {
+  width: '44px',
+  height: '44px',
+  borderRadius: '14px',
+  border: 'none',
+  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+  color: '#ffffff',
+  fontSize: '24px',
+  fontWeight: '900',
+  cursor: 'pointer',
+  boxShadow: '0 12px 22px rgba(239,68,68,0.22)',
+},
+
+addNewMaterialBox: {
+  marginTop: '10px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  gap: '16px',
+  flexWrap: 'wrap',
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '24px',
+  padding: '22px 24px',
+  boxShadow: '0 18px 38px rgba(15,23,42,0.07)',
+  border: '1px solid rgba(226,232,240,0.9)',
+},
+
+addNewMaterialText: {
+  margin: 0,
+  color: '#475569',
+  fontSize: '15px',
+  fontWeight: '600',
+},
+
+dangerButton: {
+  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+  color: '#ffffff',
+  border: 'none',
+  padding: '13px 22px',
+  borderRadius: '16px',
+  cursor: 'pointer',
+  fontWeight: '800',
+  fontSize: '15px',
+  marginTop: '12px',
+  boxShadow: '0 14px 28px rgba(239,68,68,0.22)',
+},
 }

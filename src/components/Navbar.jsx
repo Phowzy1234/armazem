@@ -106,7 +106,7 @@ function Navbar() {
                       : {}),
                   }}
                 >
-                  Sala 1
+                  Sala DSTI
                 </Link>
 
                 <Link
@@ -119,7 +119,7 @@ function Navbar() {
                       : {}),
                   }}
                 >
-                  Sala 2
+                  Armazem
                 </Link>
               </div>
             )}

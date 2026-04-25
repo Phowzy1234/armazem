@@ -42,8 +42,8 @@ function Movimentos() {
   }
 
   function nomeSala(salaId) {
-    if (salaId === 1) return 'Sala 1'
-    if (salaId === 2) return 'Sala 2'
+    if (salaId === 1) return 'Sala DSTI'
+    if (salaId === 2) return 'Armazem'
     return 'Sala desconhecida'
   }
 
