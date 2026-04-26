@@ -3,7 +3,7 @@ export const styles = {
     minHeight: '100vh',
     background: `
       radial-gradient(circle at top left, rgba(59,130,246,0.20), transparent 24%),
-      radial-gradient(circle at top right, rgba(16,185,129,0.12), transparent 20%),
+      radial-gradient(circle at top right, rgba(16,185,129,0.10), transparent 20%),
       linear-gradient(180deg, #f8fbff 0%, #eef4ff 45%, #f7f9fc 100%)
     `,
     color: '#0f172a',
@@ -11,19 +11,28 @@ export const styles = {
   },
 
   navbar: {
-    backgroundColor: 'rgba(255,255,255,0.82)',
-    backdropFilter: 'blur(18px)',
-    WebkitBackdropFilter: 'blur(18px)',
-    borderBottom: '1px solid rgba(148,163,184,0.14)',
-    padding: '16px 24px',
-    display: 'grid',
-    gridTemplateColumns: '1fr auto auto',
-    alignItems: 'center',
-    gap: '18px',
     position: 'sticky',
     top: 0,
-    zIndex: 40,
-    boxShadow: '0 8px 24px rgba(15,23,42,0.05)',
+    zIndex: 50,
+    display: 'grid',
+    gridTemplateColumns: '1.1fr auto auto',
+    alignItems: 'center',
+    gap: '22px',
+    padding: '16px 24px',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(248,250,252,0.86) 100%)',
+    backdropFilter: 'blur(18px)',
+    WebkitBackdropFilter: 'blur(18px)',
+    borderBottom: '1px solid rgba(148,163,184,0.10)',
+    boxShadow: '0 14px 34px rgba(15,23,42,0.05)',
+  },
+
+  navbarMobile: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    gap: '14px',
+    padding: '14px 16px',
   },
 
   navbarBrand: {
@@ -42,19 +51,36 @@ export const styles = {
     justifyContent: 'flex-end',
   },
 
+  brandRow: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+
   logo: {
     margin: 0,
-    fontSize: '34px',
+    fontSize: '31px',
     fontWeight: '900',
-    letterSpacing: '-1px',
+    letterSpacing: '-1.1px',
     color: '#0f172a',
+    lineHeight: 1.02,
   },
 
   logoSub: {
     margin: '6px 0 0 0',
     color: '#64748b',
-    fontSize: '15px',
-    fontWeight: '500',
+    fontSize: '13px',
+    fontWeight: '600',
+    letterSpacing: '0.1px',
+  },
+
+  logoMobile: {
+    fontSize: '23px',
+  },
+
+  logoSubMobile: {
+    fontSize: '12px',
+    lineHeight: 1.35,
   },
 
   navButtons: {
@@ -62,20 +88,22 @@ export const styles = {
     gap: '10px',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 
   navButton: {
-    padding: '11px 17px',
-    borderRadius: '14px',
-    border: '1px solid rgba(59,130,246,0.12)',
-    backgroundColor: 'rgba(255,255,255,0.86)',
+    padding: '11px 16px',
+    borderRadius: '16px',
+    border: '1px solid rgba(59,130,246,0.08)',
+    background: 'rgba(255,255,255,0.86)',
     cursor: 'pointer',
-    fontWeight: '700',
+    fontWeight: '800',
     textDecoration: 'none',
     color: '#1d4ed8',
-    boxShadow: '0 6px 18px rgba(37,99,235,0.08)',
+    boxShadow: '0 6px 14px rgba(37,99,235,0.05)',
     whiteSpace: 'nowrap',
     transition: 'all 0.2s ease',
+    fontSize: '15px',
   },
 
   navButtonActive: {
@@ -83,6 +111,13 @@ export const styles = {
     color: '#ffffff',
     border: '1px solid #2563eb',
     boxShadow: '0 14px 28px rgba(37,99,235,0.24)',
+  },
+
+  navButtonMobile: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
   },
 
   dropdown: {
@@ -111,7 +146,13 @@ export const styles = {
     borderRadius: '18px',
     boxShadow: '0 18px 40px rgba(15,23,42,0.12)',
     padding: '10px',
-    zIndex: 50,
+    zIndex: 60,
+  },
+
+  dropdownMenuMobile: {
+    position: 'static',
+    minWidth: '100%',
+    boxShadow: '0 12px 24px rgba(15,23,42,0.08)',
   },
 
   dropdownItem: {
@@ -127,6 +168,66 @@ export const styles = {
   dropdownItemActive: {
     backgroundColor: '#dbeafe',
     color: '#1d4ed8',
+  },
+
+  userBadge: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '11px 16px',
+    borderRadius: '16px',
+    background: 'linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%)',
+    color: '#1d4ed8',
+    fontWeight: '900',
+    border: '1px solid #bfdbfe',
+    boxShadow: '0 8px 20px rgba(59,130,246,0.10)',
+    fontSize: '15px',
+  },
+
+  dropdownDangerButton: {
+    width: '100%',
+    padding: '12px 14px',
+    borderRadius: '12px',
+    border: 'none',
+    background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+    color: '#ffffff',
+    fontWeight: '800',
+    fontSize: '14px',
+    cursor: 'pointer',
+    boxShadow: '0 10px 20px rgba(239,68,68,0.18)',
+  },
+
+  navbarMobileTop: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+
+  mobileMenuButton: {
+    border: '1px solid rgba(59,130,246,0.14)',
+    background: '#ffffff',
+    color: '#1d4ed8',
+    padding: '10px 14px',
+    borderRadius: '14px',
+    fontWeight: '800',
+    fontSize: '14px',
+    cursor: 'pointer',
+    boxShadow: '0 8px 18px rgba(37,99,235,0.08)',
+  },
+
+  mobileMenuPanel: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '14px',
+    paddingTop: '6px',
+  },
+
+  mobileNavButtons: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  mobileUserBox: {
+    marginTop: '4px',
   },
 
   container: {
@@ -310,7 +411,8 @@ export const styles = {
   },
 
   miniStatCard: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
     borderRadius: '24px',
     padding: '24px',
     boxShadow: '0 18px 40px rgba(15,23,42,0.07)',
@@ -360,7 +462,8 @@ export const styles = {
   },
 
   formCard: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
     borderRadius: '28px',
     padding: '30px',
     boxShadow: '0 22px 50px rgba(15,23,42,0.08)',
@@ -425,8 +528,22 @@ export const styles = {
     boxShadow: '0 10px 20px rgba(59,130,246,0.08)',
   },
 
+  dangerButton: {
+    background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+    color: '#ffffff',
+    border: 'none',
+    padding: '13px 22px',
+    borderRadius: '16px',
+    cursor: 'pointer',
+    fontWeight: '800',
+    fontSize: '15px',
+    marginTop: '12px',
+    boxShadow: '0 14px 28px rgba(239,68,68,0.22)',
+  },
+
   infoBox: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
     borderRadius: '28px',
     padding: '26px',
     boxShadow: '0 20px 45px rgba(15,23,42,0.07)',
@@ -467,7 +584,8 @@ export const styles = {
   },
 
   card: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
     borderRadius: '26px',
     padding: '24px',
     boxShadow: '0 18px 38px rgba(15,23,42,0.07)',
@@ -529,7 +647,8 @@ export const styles = {
   },
 
   emptyBox: {
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.95) 100%)',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(248,250,252,0.95) 100%)',
     borderRadius: '28px',
     padding: '40px',
     textAlign: 'center',
@@ -588,231 +707,133 @@ export const styles = {
   },
 
   quickActionBox: {
-  marginTop: '18px',
-  paddingTop: '16px',
-  borderTop: '1px solid rgba(226,232,240,0.9)',
-},
+    marginTop: '18px',
+    paddingTop: '16px',
+    borderTop: '1px solid rgba(226,232,240,0.9)',
+  },
 
-quickActionLabel: {
-  display: 'block',
-  marginBottom: '8px',
-  fontSize: '13px',
-  fontWeight: '800',
-  color: '#64748b',
-},
+  quickActionLabel: {
+    display: 'block',
+    marginBottom: '8px',
+    fontSize: '13px',
+    fontWeight: '800',
+    color: '#64748b',
+  },
 
-quickActionRow: {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '10px',
-},
+  quickActionRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
 
-quickQuantityInput: {
-  width: '90px',
-  padding: '10px 12px',
-  borderRadius: '14px',
-  border: '1px solid #cbd5e1',
-  backgroundColor: '#f8fbff',
-  fontSize: '14px',
-  fontWeight: '700',
-  color: '#0f172a',
-  outline: 'none',
-},
+  quickQuantityInput: {
+    width: '90px',
+    padding: '10px 12px',
+    borderRadius: '14px',
+    border: '1px solid #cbd5e1',
+    backgroundColor: '#f8fbff',
+    fontSize: '14px',
+    fontWeight: '700',
+    color: '#0f172a',
+    outline: 'none',
+  },
 
-plusButton: {
-  width: '44px',
-  height: '44px',
-  borderRadius: '14px',
-  border: 'none',
-  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-  color: '#ffffff',
-  fontSize: '24px',
-  fontWeight: '900',
-  cursor: 'pointer',
-  boxShadow: '0 12px 22px rgba(16,185,129,0.22)',
-},
+  plusButton: {
+    width: '44px',
+    height: '44px',
+    borderRadius: '14px',
+    border: 'none',
+    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+    color: '#ffffff',
+    fontSize: '24px',
+    fontWeight: '900',
+    cursor: 'pointer',
+    boxShadow: '0 12px 22px rgba(16,185,129,0.22)',
+  },
 
-minusButton: {
-  width: '44px',
-  height: '44px',
-  borderRadius: '14px',
-  border: 'none',
-  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-  color: '#ffffff',
-  fontSize: '24px',
-  fontWeight: '900',
-  cursor: 'pointer',
-  boxShadow: '0 12px 22px rgba(239,68,68,0.22)',
-},
+  minusButton: {
+    width: '44px',
+    height: '44px',
+    borderRadius: '14px',
+    border: 'none',
+    background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+    color: '#ffffff',
+    fontSize: '24px',
+    fontWeight: '900',
+    cursor: 'pointer',
+    boxShadow: '0 12px 22px rgba(239,68,68,0.22)',
+  },
 
-addNewMaterialBox: {
-  marginTop: '10px',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  gap: '16px',
-  flexWrap: 'wrap',
-  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
-  borderRadius: '24px',
-  padding: '22px 24px',
-  boxShadow: '0 18px 38px rgba(15,23,42,0.07)',
-  border: '1px solid rgba(226,232,240,0.9)',
-},
+  addNewMaterialBox: {
+    marginTop: '10px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '16px',
+    flexWrap: 'wrap',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+    borderRadius: '24px',
+    padding: '22px 24px',
+    boxShadow: '0 18px 38px rgba(15,23,42,0.07)',
+    border: '1px solid rgba(226,232,240,0.9)',
+  },
 
-addNewMaterialText: {
-  margin: 0,
-  color: '#475569',
-  fontSize: '15px',
-  fontWeight: '600',
-},
+  addNewMaterialText: {
+    margin: 0,
+    color: '#475569',
+    fontSize: '15px',
+    fontWeight: '600',
+  },
 
-dangerButton: {
-  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-  color: '#ffffff',
-  border: 'none',
-  padding: '13px 22px',
-  borderRadius: '16px',
-  cursor: 'pointer',
-  fontWeight: '800',
-  fontSize: '15px',
-  marginTop: '12px',
-  boxShadow: '0 14px 28px rgba(239,68,68,0.22)',
-},
+  authPage: {
+    minHeight: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '24px',
+    background: `
+      radial-gradient(circle at top left, rgba(59,130,246,0.20), transparent 24%),
+      radial-gradient(circle at top right, rgba(16,185,129,0.12), transparent 20%),
+      linear-gradient(180deg, #f8fbff 0%, #eef4ff 45%, #f7f9fc 100%)
+    `,
+  },
 
-authPage: {
-  minHeight: '100vh',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '24px',
-  background: `
-    radial-gradient(circle at top left, rgba(59,130,246,0.20), transparent 24%),
-    radial-gradient(circle at top right, rgba(16,185,129,0.12), transparent 20%),
-    linear-gradient(180deg, #f8fbff 0%, #eef4ff 45%, #f7f9fc 100%)
-  `,
-},
+  authCard: {
+    width: '100%',
+    maxWidth: '460px',
+    background:
+      'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
+    borderRadius: '28px',
+    padding: '32px',
+    boxShadow: '0 22px 50px rgba(15,23,42,0.08)',
+    border: '1px solid rgba(226,232,240,0.92)',
+  },
 
-authCard: {
-  width: '100%',
-  maxWidth: '460px',
-  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
-  borderRadius: '28px',
-  padding: '32px',
-  boxShadow: '0 22px 50px rgba(15,23,42,0.08)',
-  border: '1px solid rgba(226,232,240,0.92)',
-},
+  authTitle: {
+    margin: 0,
+    fontSize: '38px',
+    fontWeight: '900',
+    color: '#0f172a',
+  },
 
-authTitle: {
-  margin: 0,
-  fontSize: '38px',
-  fontWeight: '900',
-  color: '#0f172a',
-},
+  authSubtitle: {
+    marginTop: '10px',
+    marginBottom: '24px',
+    color: '#64748b',
+    fontSize: '15px',
+    lineHeight: 1.6,
+  },
 
-authSubtitle: {
-  marginTop: '10px',
-  marginBottom: '24px',
-  color: '#64748b',
-  fontSize: '15px',
-  lineHeight: 1.6,
-},
+  authFooterText: {
+    marginTop: '18px',
+    color: '#475569',
+    fontSize: '14px',
+  },
 
-authFooterText: {
-  marginTop: '18px',
-  color: '#475569',
-  fontSize: '14px',
-},
-
-authLink: {
-  color: '#1d4ed8',
-  fontWeight: '800',
-  textDecoration: 'none',
-},
-
-userBadge: {
-  display: 'inline-flex',
-  alignItems: 'center',
-  padding: '10px 14px',
-  borderRadius: '14px',
-  backgroundColor: '#eff6ff',
-  color: '#1d4ed8',
-  fontWeight: '800',
-  border: '1px solid #bfdbfe',
-},
-
-dropdownDangerButton: {
-  width: '100%',
-  padding: '12px 14px',
-  borderRadius: '12px',
-  border: 'none',
-  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-  color: '#ffffff',
-  fontWeight: '800',
-  fontSize: '14px',
-  cursor: 'pointer',
-  boxShadow: '0 10px 20px rgba(239,68,68,0.18)',
-},
-
-navbarMobile: {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
-  gap: '14px',
-  padding: '16px 18px',
-},
-
-navbarMobileTop: {
-  display: 'flex',
-  justifyContent: 'flex-end',
-},
-
-logoMobile: {
-  fontSize: '26px',
-  lineHeight: 1.1,
-},
-
-logoSubMobile: {
-  fontSize: '14px',
-},
-
-mobileMenuButton: {
-  border: '1px solid rgba(59,130,246,0.16)',
-  backgroundColor: '#ffffff',
-  color: '#1d4ed8',
-  padding: '10px 14px',
-  borderRadius: '14px',
-  fontWeight: '800',
-  fontSize: '14px',
-  cursor: 'pointer',
-  boxShadow: '0 8px 18px rgba(37,99,235,0.08)',
-},
-
-mobileMenuPanel: {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '14px',
-  paddingTop: '6px',
-},
-
-mobileNavButtons: {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '10px',
-},
-
-navButtonMobile: {
-  width: '100%',
-  justifyContent: 'center',
-  textAlign: 'center',
-},
-
-mobileUserBox: {
-  marginTop: '4px',
-},
-
-dropdownMenuMobile: {
-  position: 'static',
-  minWidth: '100%',
-  boxShadow: '0 12px 24px rgba(15,23,42,0.08)',
-},
+  authLink: {
+    color: '#1d4ed8',
+    fontWeight: '800',
+    textDecoration: 'none',
+  },
 }

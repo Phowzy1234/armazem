@@ -130,7 +130,9 @@ function Navbar() {
         onClick={fecharTudo}
         style={{
           ...styles.navButton,
-          ...(location.pathname.startsWith('/materiais') ? styles.navButtonActive : {}),
+          ...(location.pathname.startsWith('/materiais')
+            ? styles.navButtonActive
+            : {}),
           ...(isMobile ? styles.navButtonMobile : {}),
         }}
       >
@@ -175,7 +177,9 @@ function Navbar() {
               onClick={fecharTudo}
               style={{
                 ...styles.dropdownItem,
-                ...(location.pathname === '/sala1' ? styles.dropdownItemActive : {}),
+                ...(location.pathname === '/sala1'
+                  ? styles.dropdownItemActive
+                  : {}),
               }}
             >
               Sala DSTI
@@ -186,10 +190,12 @@ function Navbar() {
               onClick={fecharTudo}
               style={{
                 ...styles.dropdownItem,
-                ...(location.pathname === '/sala2' ? styles.dropdownItemActive : {}),
+                ...(location.pathname === '/sala2'
+                  ? styles.dropdownItemActive
+                  : {}),
               }}
             >
-              Armazem
+              Armazém
             </Link>
           </div>
         )}
@@ -198,19 +204,28 @@ function Navbar() {
   )
 
   return (
-    <div
+    <header
       style={{
         ...styles.navbar,
         ...(isMobile ? styles.navbarMobile : {}),
       }}
     >
       <div style={styles.navbarBrand}>
-        <h2 style={{ ...styles.logo, ...(isMobile ? styles.logoMobile : {}) }}>
-          Gestão de Armazém
-        </h2>
-        <p style={{ ...styles.logoSub, ...(isMobile ? styles.logoSubMobile : {}) }}>
-          Controlo simples de materiais por sala
-        </p>
+        <div style={styles.brandRow}>
+          <div>
+            <h2 style={{ ...styles.logo, ...(isMobile ? styles.logoMobile : {}) }}>
+              Gestão de Armazém
+            </h2>
+            <p
+              style={{
+                ...styles.logoSub,
+                ...(isMobile ? styles.logoSubMobile : {}),
+              }}
+            >
+              Controlo interno de materiais e stock
+            </p>
+          </div>
+        </div>
       </div>
 
       {isMobile ? (
@@ -221,15 +236,13 @@ function Navbar() {
               onClick={toggleMenuMobile}
               style={styles.mobileMenuButton}
             >
-              ☰ Menu
+              {menuMobileAberto ? '✕ Fechar' : '☰ Menu'}
             </button>
           </div>
 
           {menuMobileAberto && (
             <div style={styles.mobileMenuPanel}>
-              <div style={styles.mobileNavButtons}>
-                {navLinks}
-              </div>
+              <div style={styles.mobileNavButtons}>{navLinks}</div>
 
               <div style={styles.mobileUserBox}>
                 <div ref={dropdownUserRef} style={styles.dropdown}>
@@ -243,7 +256,8 @@ function Navbar() {
                       justifyContent: 'space-between',
                     }}
                   >
-                    {username || 'Utilizador'} <span style={styles.dropdownArrow}>▾</span>
+                    {username || 'Utilizador'}{' '}
+                    <span style={styles.dropdownArrow}>▾</span>
                   </button>
 
                   {menuUserAberto && (
@@ -285,11 +299,19 @@ function Navbar() {
                   cursor: 'pointer',
                 }}
               >
-                {username || 'Utilizador'} <span style={styles.dropdownArrow}>▾</span>
+                {username || 'Utilizador'}{' '}
+                <span style={styles.dropdownArrow}>▾</span>
               </button>
 
               {menuUserAberto && (
-                <div style={{ ...styles.dropdownMenu, right: 0, left: 'auto', minWidth: '160px' }}>
+                <div
+                  style={{
+                    ...styles.dropdownMenu,
+                    right: 0,
+                    left: 'auto',
+                    minWidth: '170px',
+                  }}
+                >
                   <button
                     type="button"
                     onClick={sair}
@@ -303,7 +325,7 @@ function Navbar() {
           </div>
         </>
       )}
-    </div>
+    </header>
   )
 }
 
