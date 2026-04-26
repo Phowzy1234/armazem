@@ -11,9 +11,17 @@ function Dashboard() {
   })
 
   const [erro, setErro] = useState('')
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
 
   useEffect(() => {
     carregarDashboard()
+
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 900)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   async function carregarDashboard() {
@@ -51,8 +59,8 @@ function Dashboard() {
     ;(movimentos || []).forEach((movimento) => {
       const quantidade = Number(movimento.quantidade)
       const material = movimento.materiais
+
       if (!material || material.ativo === false) return
-      if (!material) return
 
       if (!stockPorMaterial[material.id]) {
         stockPorMaterial[material.id] = {
@@ -105,11 +113,23 @@ function Dashboard() {
 
   return (
     <div style={styles.pageContent}>
-      <div style={styles.heroPanel}>
+      <div
+        style={{
+          ...styles.heroPanel,
+          ...(isMobile ? styles.heroPanelMobile : {}),
+        }}
+      >
         <div>
           <p style={styles.heroEyebrow}>PAINEL DE CONTROLO</p>
-          <h1 style={styles.heroTitle}>Dashboard do Armazém</h1>
-          <p style={styles.heroSubtitle}>
+          <h1 style={{ ...styles.heroTitle, ...(isMobile ? styles.heroTitleMobile : {}) }}>
+            Dashboard do Armazém
+          </h1>
+          <p
+            style={{
+              ...styles.heroSubtitle,
+              ...(isMobile ? styles.heroSubtitleMobile : {}),
+            }}
+          >
             Consulta rápida dos materiais críticos e do stock atual por sala.
           </p>
         </div>
@@ -117,7 +137,12 @@ function Dashboard() {
 
       {erro && <div style={styles.alertError}>Erro: {erro}</div>}
 
-      <div style={styles.dashboardHighlightGrid}>
+      <div
+        style={{
+          ...styles.dashboardHighlightGrid,
+          ...(isMobile ? styles.dashboardHighlightGridMobile : {}),
+        }}
+      >
         <div style={{ ...styles.highlightCard, ...styles.highlightWarning }}>
           <div>
             <p style={styles.highlightLabel}>Materiais críticos</p>
@@ -135,7 +160,12 @@ function Dashboard() {
         </div>
       </div>
 
-      <div style={styles.dashboardMainGrid}>
+      <div
+        style={{
+          ...styles.dashboardMainGrid,
+          ...(isMobile ? styles.dashboardMainGridMobile : {}),
+        }}
+      >
         <div style={styles.dashboardColumn}>
           <div style={styles.infoBox}>
             <h3 style={styles.infoTitle}>Materiais críticos</h3>
@@ -152,10 +182,29 @@ function Dashboard() {
             )}
           </div>
 
+          <div style={styles.infoBox}>
+            <h3 style={styles.infoTitle}>Sem stock</h3>
+            {dados.semStock.length === 0 ? (
+              <p style={styles.infoText}>Não existem materiais sem stock.</p>
+            ) : (
+              <ul style={styles.materialList}>
+                {dados.semStock.map((item) => (
+                  <li key={item.id} style={styles.materialItem}>
+                    <strong>{item.nome}</strong> — 0 {item.unidade}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
 
         <div style={styles.dashboardColumn}>
-          <div style={styles.twoStatsGrid}>
+          <div
+            style={{
+              ...styles.twoStatsGrid,
+              ...(isMobile ? styles.twoStatsGridMobile : {}),
+            }}
+          >
             <div style={styles.miniStatCard}>
               <p style={styles.miniStatLabel}>Sala DSTI</p>
               <h3 style={styles.miniStatValue}>{dados.totalSala1}</h3>
@@ -163,7 +212,7 @@ function Dashboard() {
             </div>
 
             <div style={styles.miniStatCard}>
-              <p style={styles.miniStatLabel}>Armazem</p>
+              <p style={styles.miniStatLabel}>Armazém</p>
               <h3 style={styles.miniStatValue}>{dados.totalSala2}</h3>
               <p style={styles.miniStatText}>Quantidade total atual</p>
             </div>

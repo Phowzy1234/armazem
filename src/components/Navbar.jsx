@@ -148,7 +148,7 @@ function Navbar() {
           ...(isMobile ? styles.navButtonMobile : {}),
         }}
       >
-        Adicionar stock
+        Adicionar
       </Link>
 
       <div ref={dropdownSalasRef} style={styles.dropdown}>
@@ -210,33 +210,21 @@ function Navbar() {
         ...(isMobile ? styles.navbarMobile : {}),
       }}
     >
-      <div style={styles.navbarBrand}>
-        <div style={styles.brandRow}>
-          <div>
-            <h2 style={{ ...styles.logo, ...(isMobile ? styles.logoMobile : {}) }}>
-              Gestão de Armazém
-            </h2>
-            <p
-              style={{
-                ...styles.logoSub,
-                ...(isMobile ? styles.logoSubMobile : {}),
-              }}
-            >
-              Controlo interno de materiais e stock
-            </p>
-          </div>
-        </div>
-      </div>
-
       {isMobile ? (
         <>
-          <div style={styles.navbarMobileTop}>
+          <div style={styles.mobileHeaderRow}>
+            <div style={styles.navbarBrand}>
+              <h2 style={{ ...styles.logo, ...styles.logoMobile }}>
+                Gestão de Armazém
+              </h2>
+            </div>
+
             <button
               type="button"
               onClick={toggleMenuMobile}
               style={styles.mobileMenuButton}
             >
-              {menuMobileAberto ? '✕ Fechar' : '☰ Menu'}
+              {menuMobileAberto ? 'Fechar' : 'Menu'}
             </button>
           </div>
 
@@ -244,7 +232,7 @@ function Navbar() {
             <div style={styles.mobileMenuPanel}>
               <div style={styles.mobileNavButtons}>{navLinks}</div>
 
-              <div style={styles.mobileUserBox}>
+              <div style={styles.mobileBottomBar}>
                 <div ref={dropdownUserRef} style={styles.dropdown}>
                   <button
                     type="button"
@@ -252,11 +240,10 @@ function Navbar() {
                     style={{
                       ...styles.userBadge,
                       ...styles.dropdownButton,
-                      width: '100%',
-                      justifyContent: 'space-between',
+                      ...styles.mobileUserButton,
                     }}
                   >
-                    {username || 'Utilizador'}{' '}
+                    {username || 'Utilizador'}
                     <span style={styles.dropdownArrow}>▾</span>
                   </button>
 
@@ -284,6 +271,11 @@ function Navbar() {
         </>
       ) : (
         <>
+          <div style={styles.navbarBrand}>
+            <h2 style={styles.logo}>Gestão de Armazém</h2>
+            <p style={styles.logoSub}>Controlo interno de materiais e stock</p>
+          </div>
+
           <div style={styles.navbarCenter}>
             <div style={styles.navButtons}>{navLinks}</div>
           </div>
@@ -299,7 +291,7 @@ function Navbar() {
                   cursor: 'pointer',
                 }}
               >
-                {username || 'Utilizador'}{' '}
+                {username || 'Utilizador'}
                 <span style={styles.dropdownArrow}>▾</span>
               </button>
 
@@ -309,7 +301,7 @@ function Navbar() {
                     ...styles.dropdownMenu,
                     right: 0,
                     left: 'auto',
-                    minWidth: '170px',
+                    minWidth: '160px',
                   }}
                 >
                   <button

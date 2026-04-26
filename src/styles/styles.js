@@ -30,9 +30,15 @@ export const styles = {
   navbarMobile: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'stretch',
-    gap: '14px',
-    padding: '14px 16px',
+    gap: '12px',
+    padding: '14px 16px 12px 16px',
+  },
+
+  mobileHeaderRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '12px',
   },
 
   navbarBrand: {
@@ -50,12 +56,6 @@ export const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
   },
-
-  brandRow: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
 
   logo: {
     margin: 0,
@@ -75,7 +75,8 @@ export const styles = {
   },
 
   logoMobile: {
-    fontSize: '23px',
+    fontSize: '22px',
+    lineHeight: 1.05,
   },
 
   logoSubMobile: {
@@ -118,6 +119,8 @@ export const styles = {
     display: 'flex',
     justifyContent: 'center',
     textAlign: 'center',
+    padding: '13px 14px',
+    borderRadius: '14px',
   },
 
   dropdown: {
@@ -183,6 +186,11 @@ export const styles = {
     fontSize: '15px',
   },
 
+  mobileUserButton: {
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+
   dropdownDangerButton: {
     width: '100%',
     padding: '12px 14px',
@@ -196,11 +204,6 @@ export const styles = {
     boxShadow: '0 10px 20px rgba(239,68,68,0.18)',
   },
 
-  navbarMobileTop: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-
   mobileMenuButton: {
     border: '1px solid rgba(59,130,246,0.14)',
     background: '#ffffff',
@@ -211,13 +214,14 @@ export const styles = {
     fontSize: '14px',
     cursor: 'pointer',
     boxShadow: '0 8px 18px rgba(37,99,235,0.08)',
+    flexShrink: 0,
   },
 
   mobileMenuPanel: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '14px',
-    paddingTop: '6px',
+    gap: '12px',
+    paddingTop: '4px',
   },
 
   mobileNavButtons: {
@@ -226,8 +230,8 @@ export const styles = {
     gap: '10px',
   },
 
-  mobileUserBox: {
-    marginTop: '4px',
+  mobileBottomBar: {
+    marginTop: '2px',
   },
 
   container: {
@@ -279,6 +283,11 @@ export const styles = {
     border: '1px solid rgba(255,255,255,0.08)',
   },
 
+  heroPanelMobile: {
+    padding: '24px 20px',
+    borderRadius: '24px',
+  },
+
   heroEyebrow: {
     margin: '0 0 10px 0',
     fontSize: '12px',
@@ -295,12 +304,22 @@ export const styles = {
     lineHeight: 1.03,
   },
 
+  heroTitleMobile: {
+    fontSize: '34px',
+    lineHeight: 1.08,
+  },
+
   heroSubtitle: {
     marginTop: '14px',
     maxWidth: '760px',
     fontSize: '17px',
     lineHeight: 1.7,
     color: 'rgba(255,255,255,0.88)',
+  },
+
+  heroSubtitleMobile: {
+    fontSize: '15px',
+    lineHeight: 1.55,
   },
 
   heroActions: {
@@ -336,6 +355,10 @@ export const styles = {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
     gap: '18px',
+  },
+
+  dashboardHighlightGridMobile: {
+    gridTemplateColumns: '1fr',
   },
 
   highlightCard: {
@@ -398,6 +421,10 @@ export const styles = {
     gap: '20px',
   },
 
+  dashboardMainGridMobile: {
+    gridTemplateColumns: '1fr',
+  },
+
   dashboardColumn: {
     display: 'flex',
     flexDirection: 'column',
@@ -408,6 +435,10 @@ export const styles = {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gap: '18px',
+  },
+
+  twoStatsGridMobile: {
+    gridTemplateColumns: '1fr',
   },
 
   miniStatCard: {
