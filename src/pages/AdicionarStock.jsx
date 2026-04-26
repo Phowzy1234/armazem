@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../Lib/supabase'
 import { styles } from '../styles/styles'
-import { getUtilizadorAtualId } from '../Lib/utilizadorAtual'
+import { getAuthUserId } from '../Lib/authUser'
 
 function AdicionarStock() {
   const [materiais, setMateriais] = useState([])
@@ -56,7 +56,7 @@ function AdicionarStock() {
     setErro('')
     setMensagem('')
 
-    const utilizadorId = getUtilizadorAtualId()
+    const utilizadorId = await getAuthUserId()
 
     if (!utilizadorId) {
       setErro('Seleciona um utilizador no topo da aplicação.')
@@ -119,7 +119,7 @@ function AdicionarStock() {
           sala_id: Number(salaId),
           tipo: 'entrada',
           quantidade: quantidadeNumero,
-          utilizador_id: Number(utilizadorId),
+          utilizador_auth_id: utilizadorId,
         },
       ])
 

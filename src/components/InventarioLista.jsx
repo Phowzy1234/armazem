@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../Lib/supabase'
-import { getUtilizadorAtualId } from '../Lib/utilizadorAtual'
+import { getAuthUserId } from '../Lib/authUser'
 import { styles } from '../styles/styles'
 
 function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
@@ -24,7 +24,7 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
     setErro('')
     setMensagem('')
 
-    const utilizadorId = getUtilizadorAtualId()
+    const utilizadorId = await getAuthUserId()
 
     if (!utilizadorId) {
       setErro('Seleciona um utilizador no topo da aplicação.')
@@ -49,7 +49,7 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
         sala_id: Number(salaId),
         tipo,
         quantidade: quantidadeNumero,
-        utilizador_id: Number(utilizadorId),
+        utilizador_auth_id: utilizadorId,
       },
     ])
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../Lib/supabase'
 import { styles } from '../styles/styles'
-import { getUtilizadorAtualId } from '../Lib/utilizadorAtual'
+import { getAuthUserId } from '../Lib/authUser'
 
 function AcoesSala({ salaAtualId, outraSalaId, materiaisDaSala, aoAtualizar }) {
   const [materialId, setMaterialId] = useState('')
@@ -15,7 +15,7 @@ function AcoesSala({ salaAtualId, outraSalaId, materiaisDaSala, aoAtualizar }) {
     setErro('')
     setMensagem('')
 
-    const utilizadorId = getUtilizadorAtualId()
+    const utilizadorId = await getAuthUserId()
 
     if (!utilizadorId) {
       setErro('Seleciona um utilizador no topo da aplicação.')
@@ -43,7 +43,7 @@ function AcoesSala({ salaAtualId, outraSalaId, materiaisDaSala, aoAtualizar }) {
 
     const { error } = await supabase.from('movimentos_stock').insert([
       {
-        utilizador_id: Number(utilizadorId),
+        utilizador_auth_id: utilizadorId,
         material_id: Number(materialId),
         sala_id: salaAtualId,
         tipo: 'saida',
@@ -67,7 +67,7 @@ function AcoesSala({ salaAtualId, outraSalaId, materiaisDaSala, aoAtualizar }) {
     setErro('')
     setMensagem('')
 
-    const utilizadorId = getUtilizadorAtualId()
+    const utilizadorId = await getAuthUserId()
 
     if (!utilizadorId) {
       setErro('Seleciona um utilizador no topo da aplicação.')
@@ -95,7 +95,7 @@ function AcoesSala({ salaAtualId, outraSalaId, materiaisDaSala, aoAtualizar }) {
 
     const { error: erroSaida } = await supabase.from('movimentos_stock').insert([
       {
-        utilizador_id: Number(utilizadorId),
+        utilizador_auth_id: utilizadorId,
         material_id: Number(materialId),
         sala_id: salaAtualId,
         tipo: 'saida',
@@ -110,7 +110,7 @@ function AcoesSala({ salaAtualId, outraSalaId, materiaisDaSala, aoAtualizar }) {
 
     const { error: erroEntrada } = await supabase.from('movimentos_stock').insert([
       {
-        utilizador_id: Number(utilizadorId),
+        utilizador_auth_id: utilizadorId,
         material_id: Number(materialId),
         sala_id: outraSalaId,
         tipo: 'entrada',

@@ -26,9 +26,9 @@ function Movimentos() {
           nome,
           unidade
         ),
-        utilizadores (
+        perfis!movimentos_stock_utilizador_auth_id_fkey (
           id,
-          nome
+          username
         )
       `)
       .order('criado_em', { ascending: false })
@@ -98,7 +98,9 @@ function Movimentos() {
                     <td style={styles.td}>{nomeSala(movimento.sala_id)}</td>
                     <td style={styles.td}>{movimento.quantidade}</td>
                     <td style={styles.td}>{movimento.materiais?.unidade || '-'}</td>
-                    <td style={styles.td}>{movimento.utilizadores?.nome || '-'}</td>
+                    <td style={styles.td}>
+                      {movimento.perfis?.username || '-'}
+                    </td>
                     <td style={styles.td}>
                       {movimento.criado_em
                         ? new Date(movimento.criado_em).toLocaleString('pt-PT')

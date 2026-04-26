@@ -11,19 +11,19 @@ export const styles = {
   },
 
   navbar: {
-    backgroundColor: 'rgba(255,255,255,0.78)',
+    backgroundColor: 'rgba(255,255,255,0.82)',
     backdropFilter: 'blur(18px)',
     WebkitBackdropFilter: 'blur(18px)',
-    borderBottom: '1px solid rgba(148,163,184,0.16)',
-    padding: '18px 30px',
+    borderBottom: '1px solid rgba(148,163,184,0.14)',
+    padding: '16px 24px',
     display: 'grid',
     gridTemplateColumns: '1fr auto auto',
     alignItems: 'center',
-    gap: '20px',
+    gap: '18px',
     position: 'sticky',
     top: 0,
     zIndex: 40,
-    boxShadow: '0 10px 28px rgba(15,23,42,0.06)',
+    boxShadow: '0 8px 24px rgba(15,23,42,0.05)',
   },
 
   navbarBrand: {
@@ -677,5 +677,142 @@ dangerButton: {
   fontSize: '15px',
   marginTop: '12px',
   boxShadow: '0 14px 28px rgba(239,68,68,0.22)',
+},
+
+authPage: {
+  minHeight: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '24px',
+  background: `
+    radial-gradient(circle at top left, rgba(59,130,246,0.20), transparent 24%),
+    radial-gradient(circle at top right, rgba(16,185,129,0.12), transparent 20%),
+    linear-gradient(180deg, #f8fbff 0%, #eef4ff 45%, #f7f9fc 100%)
+  `,
+},
+
+authCard: {
+  width: '100%',
+  maxWidth: '460px',
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.97) 100%)',
+  borderRadius: '28px',
+  padding: '32px',
+  boxShadow: '0 22px 50px rgba(15,23,42,0.08)',
+  border: '1px solid rgba(226,232,240,0.92)',
+},
+
+authTitle: {
+  margin: 0,
+  fontSize: '38px',
+  fontWeight: '900',
+  color: '#0f172a',
+},
+
+authSubtitle: {
+  marginTop: '10px',
+  marginBottom: '24px',
+  color: '#64748b',
+  fontSize: '15px',
+  lineHeight: 1.6,
+},
+
+authFooterText: {
+  marginTop: '18px',
+  color: '#475569',
+  fontSize: '14px',
+},
+
+authLink: {
+  color: '#1d4ed8',
+  fontWeight: '800',
+  textDecoration: 'none',
+},
+
+userBadge: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  padding: '10px 14px',
+  borderRadius: '14px',
+  backgroundColor: '#eff6ff',
+  color: '#1d4ed8',
+  fontWeight: '800',
+  border: '1px solid #bfdbfe',
+},
+
+dropdownDangerButton: {
+  width: '100%',
+  padding: '12px 14px',
+  borderRadius: '12px',
+  border: 'none',
+  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+  color: '#ffffff',
+  fontWeight: '800',
+  fontSize: '14px',
+  cursor: 'pointer',
+  boxShadow: '0 10px 20px rgba(239,68,68,0.18)',
+},
+
+navbarMobile: {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
+  gap: '14px',
+  padding: '16px 18px',
+},
+
+navbarMobileTop: {
+  display: 'flex',
+  justifyContent: 'flex-end',
+},
+
+logoMobile: {
+  fontSize: '26px',
+  lineHeight: 1.1,
+},
+
+logoSubMobile: {
+  fontSize: '14px',
+},
+
+mobileMenuButton: {
+  border: '1px solid rgba(59,130,246,0.16)',
+  backgroundColor: '#ffffff',
+  color: '#1d4ed8',
+  padding: '10px 14px',
+  borderRadius: '14px',
+  fontWeight: '800',
+  fontSize: '14px',
+  cursor: 'pointer',
+  boxShadow: '0 8px 18px rgba(37,99,235,0.08)',
+},
+
+mobileMenuPanel: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '14px',
+  paddingTop: '6px',
+},
+
+mobileNavButtons: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+},
+
+navButtonMobile: {
+  width: '100%',
+  justifyContent: 'center',
+  textAlign: 'center',
+},
+
+mobileUserBox: {
+  marginTop: '4px',
+},
+
+dropdownMenuMobile: {
+  position: 'static',
+  minWidth: '100%',
+  boxShadow: '0 12px 24px rgba(15,23,42,0.08)',
 },
 }

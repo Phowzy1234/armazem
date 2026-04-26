@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { supabase } from '../Lib/supabase'
 import { styles } from '../styles/styles'
-import { getUtilizadorAtualId } from '../Lib/utilizadorAtual'
+import { getAuthUserId } from '../Lib/authUser'
 
 function MaterialDetalhe() {
   const { id } = useParams()
@@ -112,68 +112,68 @@ function MaterialDetalhe() {
   }
 
   async function removerDefinitivamenteDoStock() {
-    setErro('')
-    setMensagem('')
+  setErro('')
+  setMensagem('')
 
-    const utilizadorId = getUtilizadorAtualId()
+  const utilizadorId = await getAuthUserId()
 
-    if (!utilizadorId) {
-      setErro('Seleciona um utilizador no topo da aplicação.')
-      return
-    }
-
-    const confirmar = window.confirm(
-      'Tens a certeza que queres remover este material definitivamente do stock? O sistema vai retirar todo o stock das salas e arquivar o material.'
-    )
-
-    if (!confirmar) return
-
-    const movimentosParaInserir = []
-
-    if (stockSala1 > 0) {
-      movimentosParaInserir.push({
-        material_id: Number(id),
-        sala_id: 1,
-        tipo: 'saida',
-        quantidade: Number(stockSala1),
-        utilizador_id: Number(utilizadorId),
-      })
-    }
-
-    if (stockSala2 > 0) {
-      movimentosParaInserir.push({
-        material_id: Number(id),
-        sala_id: 2,
-        tipo: 'saida',
-        quantidade: Number(stockSala2),
-        utilizador_id: Number(utilizadorId),
-      })
-    }
-
-    if (movimentosParaInserir.length > 0) {
-      const { error: erroMovimentos } = await supabase
-        .from('movimentos_stock')
-        .insert(movimentosParaInserir)
-
-      if (erroMovimentos) {
-        setErro(erroMovimentos.message)
-        return
-      }
-    }
-
-    const { error: erroArquivar } = await supabase
-      .from('materiais')
-      .update({ ativo: false })
-      .eq('id', id)
-
-    if (erroArquivar) {
-      setErro(erroArquivar.message)
-      return
-    }
-
-    setMensagem('Material removido definitivamente do stock com sucesso.')
-    carregarTudo()
+  if (!utilizadorId) {
+    setErro('Não foi possível identificar o utilizador autenticado.')
+    return
   }
+
+  const confirmar = window.confirm(
+    'Tens a certeza que queres remover este material definitivamente do stock? O sistema vai retirar todo o stock das salas e arquivar o material.'
+  )
+
+  if (!confirmar) return
+
+  const movimentosParaInserir = []
+
+  if (stockSala1 > 0) {
+    movimentosParaInserir.push({
+      material_id: id,
+      sala_id: 1,
+      tipo: 'saida',
+      quantidade: Number(stockSala1),
+      utilizador_auth_id: utilizadorId,
+    })
+  }
+
+  if (stockSala2 > 0) {
+    movimentosParaInserir.push({
+      material_id: id,
+      sala_id: 2,
+      tipo: 'saida',
+      quantidade: Number(stockSala2),
+      utilizador_auth_id: utilizadorId,
+    })
+  }
+
+  if (movimentosParaInserir.length > 0) {
+    const { error: erroMovimentos } = await supabase
+      .from('movimentos_stock')
+      .insert(movimentosParaInserir)
+
+    if (erroMovimentos) {
+      setErro(erroMovimentos.message)
+      return
+    }
+  }
+
+  const { error: erroArquivar } = await supabase
+    .from('materiais')
+    .update({ ativo: false })
+    .eq('id', id)
+
+  if (erroArquivar) {
+    setErro(erroArquivar.message)
+    return
+  }
+
+  setMensagem('Material removido definitivamente do stock com sucesso.')
+  carregarTudo()
+}
 
   if (!material) {
     return (
