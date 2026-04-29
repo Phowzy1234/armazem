@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '../Lib/supabase'
 import { styles } from '../styles/styles'
 
@@ -113,112 +114,108 @@ function Dashboard() {
 
   return (
     <div style={styles.pageContent}>
-      <div
+      <section
         style={{
-          ...styles.heroPanel,
-          ...(isMobile ? styles.heroPanelMobile : {}),
+          ...styles.dashboardHero,
+          ...(isMobile ? styles.dashboardHeroMobile : {}),
         }}
       >
-        <div>
-          <p style={styles.heroEyebrow}>PAINEL DE CONTROLO</p>
-          <h1 style={{ ...styles.heroTitle, ...(isMobile ? styles.heroTitleMobile : {}) }}>
-            Dashboard do Armazém
+        <div style={styles.dashboardHeroContent}>
+          <p style={styles.dashboardHeroEyebrow}>VISÃO GERAL</p>
+          <h1
+            style={{
+              ...styles.dashboardHeroTitle,
+              ...(isMobile ? styles.dashboardHeroTitleMobile : {}),
+            }}
+          >
+            Dashboard do armazém
           </h1>
           <p
             style={{
-              ...styles.heroSubtitle,
-              ...(isMobile ? styles.heroSubtitleMobile : {}),
+              ...styles.dashboardHeroText,
+              ...(isMobile ? styles.dashboardHeroTextMobile : {}),
             }}
           >
-            Consulta rápida dos materiais críticos e do stock atual por sala.
+            Consulta rápida dos materiais críticos, ruturas e estado atual das salas.
           </p>
         </div>
-      </div>
+
+        <div
+          style={{
+            ...styles.dashboardHeroActions,
+            ...(isMobile ? styles.dashboardHeroActionsMobile : {}),
+          }}
+        >
+          <Link to="/adicionar" style={styles.dashboardPrimaryAction}>
+            Adicionar stock
+          </Link>
+
+          <Link to="/materiais" style={styles.dashboardSecondaryAction}>
+            Ver materiais
+          </Link>
+        </div>
+      </section>
 
       {erro && <div style={styles.alertError}>Erro: {erro}</div>}
 
-      <div
+      <section
         style={{
-          ...styles.dashboardHighlightGrid,
-          ...(isMobile ? styles.dashboardHighlightGridMobile : {}),
+          ...styles.dashboardSimpleTopGrid,
+          ...(isMobile ? styles.dashboardSimpleTopGridMobile : {}),
         }}
       >
-        <div style={{ ...styles.highlightCard, ...styles.highlightWarning }}>
-          <div>
-            <p style={styles.highlightLabel}>Materiais críticos</p>
-            <h3 style={styles.highlightValue}>{dados.materiaisCriticos.length}</h3>
-            <p style={styles.highlightText}>Precisam de reposição em breve.</p>
-          </div>
+        <div style={styles.dashboardStatCardAlert}>
+          <p style={styles.dashboardStatLabel}>Materiais críticos</p>
+          <h3 style={styles.dashboardStatValue}>{dados.materiaisCriticos.length}</h3>
+          <p style={styles.dashboardStatSub}>Precisam de atenção em breve</p>
         </div>
 
-        <div style={{ ...styles.highlightCard, ...styles.highlightDanger }}>
-          <div>
-            <p style={styles.highlightLabel}>Sem stock</p>
-            <h3 style={styles.highlightValue}>{dados.semStock.length}</h3>
-            <p style={styles.highlightText}>Materiais esgotados.</p>
-          </div>
+        <div style={styles.dashboardStatCardDanger}>
+          <p style={styles.dashboardStatLabel}>Sem stock</p>
+          <h3 style={styles.dashboardStatValue}>{dados.semStock.length}</h3>
+          <p style={styles.dashboardStatSub}>Materiais atualmente esgotados</p>
         </div>
-      </div>
+      </section>
 
-      <div
+      <section
         style={{
-          ...styles.dashboardMainGrid,
-          ...(isMobile ? styles.dashboardMainGridMobile : {}),
+          ...styles.dashboardSimpleMainGrid,
+          ...(isMobile ? styles.dashboardSimpleMainGridMobile : {}),
         }}
       >
-        <div style={styles.dashboardColumn}>
-          <div style={styles.infoBox}>
-            <h3 style={styles.infoTitle}>Materiais críticos</h3>
-            {dados.materiaisCriticos.length === 0 ? (
-              <p style={styles.infoText}>Nenhum material em nível crítico.</p>
-            ) : (
-              <ul style={styles.materialList}>
-                {dados.materiaisCriticos.map((item) => (
-                  <li key={item.id} style={styles.materialItem}>
-                    <strong>{item.nome}</strong> — {item.quantidade} {item.unidade} | mínimo: {item.stock_minimo}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+        
 
-          <div style={styles.infoBox}>
-            <h3 style={styles.infoTitle}>Sem stock</h3>
-            {dados.semStock.length === 0 ? (
-              <p style={styles.infoText}>Não existem materiais sem stock.</p>
-            ) : (
-              <ul style={styles.materialList}>
-                {dados.semStock.map((item) => (
-                  <li key={item.id} style={styles.materialItem}>
-                    <strong>{item.nome}</strong> — 0 {item.unidade}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-
-        <div style={styles.dashboardColumn}>
-          <div
-            style={{
-              ...styles.twoStatsGrid,
-              ...(isMobile ? styles.twoStatsGridMobile : {}),
-            }}
-          >
-            <div style={styles.miniStatCard}>
-              <p style={styles.miniStatLabel}>Sala DSTI</p>
-              <h3 style={styles.miniStatValue}>{dados.totalSala1}</h3>
-              <p style={styles.miniStatText}>Quantidade total atual</p>
+        <div style={styles.dashboardSideColumn}>
+          <div style={styles.dashboardPanel}>
+            <div style={styles.dashboardPanelHeader}>
+              <div>
+                <p style={styles.dashboardPanelEyebrow}>SALAS</p>
+                <h3 style={styles.dashboardPanelTitle}>Estado das salas</h3>
+              </div>
             </div>
 
-            <div style={styles.miniStatCard}>
-              <p style={styles.miniStatLabel}>Armazém</p>
-              <h3 style={styles.miniStatValue}>{dados.totalSala2}</h3>
-              <p style={styles.miniStatText}>Quantidade total atual</p>
+            <div style={styles.dashboardRoomGrid}>
+              <div style={styles.dashboardRoomCard}>
+                <p style={styles.dashboardRoomName}>Sala DSTI</p>
+                <h3 style={styles.dashboardRoomValue}>{dados.totalSala1}</h3>
+                <p style={styles.dashboardRoomSub}>Quantidade total atual</p>
+                <Link to="/sala1" style={styles.dashboardMiniLink}>
+                  Abrir sala
+                </Link>
+              </div>
+
+              <div style={styles.dashboardRoomCard}>
+                <p style={styles.dashboardRoomName}>Armazém</p>
+                <h3 style={styles.dashboardRoomValue}>{dados.totalSala2}</h3>
+                <p style={styles.dashboardRoomSub}>Quantidade total atual</p>
+                <Link to="/sala2" style={styles.dashboardMiniLink}>
+                  Abrir sala
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

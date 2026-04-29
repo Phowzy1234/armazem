@@ -21,7 +21,8 @@ function Sala1() {
           id,
           nome,
           descricao,
-          unidade
+          unidade,
+          ativo
         )
       `)
       .eq('sala_id', 1)
@@ -35,7 +36,7 @@ function Sala1() {
 
     ;(data || []).forEach((movimento) => {
       const material = movimento.materiais
-      if (!material) return
+      if (!material || material.ativo === false) return
 
       if (!agrupado[material.id]) {
         agrupado[material.id] = {
@@ -62,7 +63,7 @@ function Sala1() {
   return (
     <InventarioLista
       lista={inventario}
-      nomeSala="Inventário da Sala DSTI"
+      nomeSala="Sala DSTI"
       salaId={1}
       onAtualizar={carregarInventario}
     />

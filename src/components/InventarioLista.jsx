@@ -27,7 +27,7 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
     const utilizadorId = await getAuthUserId()
 
     if (!utilizadorId) {
-      setErro('Seleciona um utilizador no topo da aplicação.')
+      setErro('Não foi possível identificar o utilizador autenticado.')
       return
     }
 
@@ -71,10 +71,21 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
 
   return (
     <div style={styles.pageContent}>
-      <div style={styles.sectionHeader}>
-        <h1 style={styles.title}>{nomeSala}</h1>
-        <p style={styles.subtitle}>Inventário atual desta sala.</p>
-      </div>
+      <section style={styles.salaHero}>
+        <div>
+          <p style={styles.salaHeroEyebrow}>INVENTÁRIO</p>
+          <h1 style={styles.salaHeroTitle}>{nomeSala}</h1>
+          <p style={styles.salaHeroText}>
+            Consulta o stock atual desta sala e faz ajustes rápidos sem sair da página.
+          </p>
+        </div>
+
+        <div style={styles.salaHeroActions}>
+          <Link to="/adicionar" style={styles.dashboardPrimaryAction}>
+            Adicionar stock
+          </Link>
+        </div>
+      </section>
 
       {erro && <div style={styles.alertError}>Erro: {erro}</div>}
       {mensagem && <div style={styles.alertSuccess}>{mensagem}</div>}
@@ -84,25 +95,28 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
           <p style={styles.emptyText}>Não existem materiais nesta sala.</p>
         </div>
       ) : (
-        <div style={styles.grid}>
+        <div style={styles.salaGrid}>
           {lista.map((item) => (
-            <div key={item.id} style={styles.card}>
-              <div style={styles.cardTop}>
-                <h3 style={styles.cardTitle}>{item.nome}</h3>
-                <span style={styles.badge}>{item.unidade}</span>
+            <div key={item.id} style={styles.salaCard}>
+              <div style={styles.salaCardTop}>
+                <div>
+                  <h3 style={styles.salaCardTitle}>{item.nome}</h3>
+                  <p style={styles.salaCardSub}>
+                    {item.descricao || 'Sem descrição'}
+                  </p>
+                </div>
+
+                <span style={styles.salaCardBadge}>{item.unidade}</span>
               </div>
 
-              <p style={styles.stockValue}>
-                {item.quantidade} <span style={styles.stockUnit}>{item.unidade}</span>
-              </p>
+              <div style={styles.salaStockBox}>
+                <p style={styles.salaStockLabel}>Stock atual</p>
+                <h2 style={styles.salaStockValue}>
+                  {item.quantidade} <span style={styles.salaStockUnit}>{item.unidade}</span>
+                </h2>
+              </div>
 
-              {item.descricao ? (
-                <p style={styles.cardDescription}>{item.descricao}</p>
-              ) : (
-                <p style={styles.cardDescriptionMuted}>Sem descrição.</p>
-              )}
-
-              <div style={styles.quickActionBox}>
+              <div style={styles.salaActionSection}>
                 <label style={styles.quickActionLabel}>Quantidade</label>
 
                 <div style={styles.quickActionRow}>
@@ -140,7 +154,7 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
 
       <div style={styles.addNewMaterialBox}>
         <p style={styles.addNewMaterialText}>
-          Adiciona materias novos
+          Não encontras o material que precisas nesta sala?
         </p>
 
         <Link to="/adicionar" style={styles.primaryButtonLink}>

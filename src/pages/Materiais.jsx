@@ -8,9 +8,17 @@ function Materiais() {
   const [pesquisa, setPesquisa] = useState('')
   const [filtro, setFiltro] = useState('todos')
   const [erro, setErro] = useState('')
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
 
   useEffect(() => {
     carregarMateriais()
+
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 900)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   async function carregarMateriais() {
@@ -66,6 +74,30 @@ function Materiais() {
     setMateriais(listaFinal)
   }
 
+  function estadoMaterial(material) {
+    const minimo = Number(material.stock_minimo || 0)
+    const total = Number(material.total || 0)
+
+    if (total <= 0) {
+      return {
+        texto: 'Sem stock',
+        estilo: styles.materiaisEstadoDanger,
+      }
+    }
+
+    if (minimo > 0 && total <= minimo) {
+      return {
+        texto: 'Crítico',
+        estilo: styles.materiaisEstadoWarning,
+      }
+    }
+
+    return {
+      texto: 'Normal',
+      estilo: styles.materiaisEstadoOk,
+    }
+  }
+
   const materiaisFiltrados = useMemo(() => {
     return materiais.filter((material) => {
       const matchPesquisa =
@@ -75,7 +107,10 @@ function Materiais() {
       if (!matchPesquisa) return false
 
       if (filtro === 'baixo') {
-        return Number(material.stock_minimo || 0) > 0 && material.total <= Number(material.stock_minimo || 0)
+        return (
+          Number(material.stock_minimo || 0) > 0 &&
+          material.total <= Number(material.stock_minimo || 0)
+        )
       }
 
       if (filtro === 'semstock') {
@@ -96,15 +131,42 @@ function Materiais() {
 
   return (
     <div style={styles.pageContent}>
-      <div style={styles.sectionHeader}>
-        <h1 style={styles.title}>Materiais</h1>
-        <p style={styles.subtitle}>Pesquisa, controlo e consulta rápida dos materiais.</p>
-      </div>
+      <section
+        style={{
+          ...styles.materiaisHero,
+          ...(isMobile ? styles.materiaisHeroMobile : {}),
+        }}
+      >
+        <div>
+          <p style={styles.materiaisHeroEyebrow}>CATÁLOGO</p>
+          <h1
+            style={{
+              ...styles.materiaisHeroTitle,
+              ...(isMobile ? styles.materiaisHeroTitleMobile : {}),
+            }}
+          >
+            Materiais
+          </h1>
+          <p
+            style={{
+              ...styles.materiaisHeroText,
+              ...(isMobile ? styles.materiaisHeroTextMobile : {}),
+            }}
+          >
+            Consulta, procura e analisa rapidamente os materiais ativos do armazém.
+          </p>
+        </div>
+      </section>
 
       {erro && <div style={styles.alertError}>Erro: {erro}</div>}
 
-      <div style={styles.formCard}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '16px' }}>
+      <section style={styles.materiaisFiltrosPanel}>
+        <div
+          style={{
+            ...styles.materiaisFiltrosGrid,
+            ...(isMobile ? styles.materiaisFiltrosGridMobile : {}),
+          }}
+        >
           <div>
             <label style={styles.label}>Pesquisar</label>
             <input
@@ -118,59 +180,101 @@ function Materiais() {
 
           <div>
             <label style={styles.label}>Filtro</label>
-            <select value={filtro} onChange={(e) => setFiltro(e.target.value)} style={styles.input}>
+            <select
+              value={filtro}
+              onChange={(e) => setFiltro(e.target.value)}
+              style={styles.input}
+            >
               <option value="todos">Todos</option>
-              <option value="baixo">Stock baixo</option>
+              <option value="baixo">Stock crítico</option>
               <option value="semstock">Sem stock</option>
-              <option value="sala1">Com stock na Sala 1</option>
-              <option value="sala2">Com stock na Sala 2</option>
+              <option value="sala1">Com stock na Sala DSTI</option>
+              <option value="sala2">Com stock no Armazém</option>
             </select>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div style={styles.infoBox}>
+      <section style={styles.materiaisPanel}>
+        <div style={styles.materiaisPanelHeader}>
+          <div>
+            <p style={styles.materiaisPanelEyebrow}>LISTAGEM</p>
+            <h3 style={styles.materiaisPanelTitle}>Materiais ativos</h3>
+          </div>
+
+          <span style={styles.dashboardCountBadge}>
+            {materiaisFiltrados.length}
+          </span>
+        </div>
+
         {materiaisFiltrados.length === 0 ? (
-          <p style={styles.infoText}>Não foram encontrados materiais.</p>
+          <p style={styles.dashboardEmptyText}>Não foram encontrados materiais.</p>
         ) : (
           <div style={{ overflowX: 'auto' }}>
-            <table style={styles.table}>
+            <table style={styles.materiaisTable}>
               <thead>
                 <tr>
-                  <th style={styles.th}>Material</th>
-                  <th style={styles.th}>Sala 1</th>
-                  <th style={styles.th}>Sala 2</th>
-                  <th style={styles.th}>Total</th>
-                  <th style={styles.th}>Mínimo</th>
-                  <th style={styles.th}>Ações</th>
+                  <th style={styles.materiaisTh}>Material</th>
+                  <th style={styles.materiaisTh}>Sala DSTI</th>
+                  <th style={styles.materiaisTh}>Armazém</th>
+                  <th style={styles.materiaisTh}>Total</th>
+                  <th style={styles.materiaisTh}>Mínimo</th>
+                  <th style={styles.materiaisTh}>Estado</th>
+                  <th style={styles.materiaisTh}>Ações</th>
                 </tr>
               </thead>
+
               <tbody>
-                {materiaisFiltrados.map((material) => (
-                  <tr key={material.id}>
-                    <td style={styles.td}>
-                      <strong>{material.nome}</strong>
-                      <br />
-                      <span style={{ color: '#64748b', fontSize: '13px' }}>
-                        {material.descricao || 'Sem descrição'}
-                      </span>
-                    </td>
-                    <td style={styles.td}>{material.sala1}</td>
-                    <td style={styles.td}>{material.sala2}</td>
-                    <td style={styles.td}>{material.total} {material.unidade}</td>
-                    <td style={styles.td}>{material.stock_minimo || 0}</td>
-                    <td style={styles.td}>
-                      <Link to={`/materiais/${material.id}`} style={styles.secondaryButtonLink}>
-                        Ver detalhe
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                {materiaisFiltrados.map((material) => {
+                  const estado = estadoMaterial(material)
+
+                  return (
+                    <tr key={material.id}>
+                      <td style={styles.materiaisTdMain}>
+                        <div>
+                          <p style={styles.materiaisNome}>{material.nome}</p>
+                          <p style={styles.materiaisDescricao}>
+                            {material.descricao || 'Sem descrição'}
+                          </p>
+                        </div>
+                      </td>
+
+                      <td style={styles.materiaisTd}>{material.sala1}</td>
+                      <td style={styles.materiaisTd}>{material.sala2}</td>
+                      <td style={styles.materiaisTd}>
+                        {material.total} {material.unidade}
+                      </td>
+                      <td style={styles.materiaisTd}>
+                        {material.stock_minimo || 0}
+                      </td>
+
+                      <td style={styles.materiaisTd}>
+                        <span
+                          style={{
+                            ...styles.materiaisEstadoBase,
+                            ...estado.estilo,
+                          }}
+                        >
+                          {estado.texto}
+                        </span>
+                      </td>
+
+                      <td style={styles.materiaisTd}>
+                        <Link
+                          to={`/materiais/${material.id}`}
+                          style={styles.secondaryButtonLink}
+                        >
+                          Ver detalhe
+                        </Link>
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>
         )}
-      </div>
+      </section>
     </div>
   )
 }

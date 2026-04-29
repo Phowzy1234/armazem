@@ -93,35 +93,37 @@ export const styles = {
   },
 
   navButton: {
-    padding: '11px 16px',
-    borderRadius: '16px',
-    border: '1px solid rgba(59,130,246,0.08)',
-    background: 'rgba(255,255,255,0.86)',
-    cursor: 'pointer',
-    fontWeight: '800',
-    textDecoration: 'none',
-    color: '#1d4ed8',
-    boxShadow: '0 6px 14px rgba(37,99,235,0.05)',
-    whiteSpace: 'nowrap',
-    transition: 'all 0.2s ease',
-    fontSize: '15px',
-  },
+  padding: '11px 16px',
+  borderRadius: '14px',
+  border: '1px solid transparent',
+  background: 'transparent',
+  cursor: 'pointer',
+  fontWeight: '800',
+  textDecoration: 'none',
+  color: '#334155',
+  whiteSpace: 'nowrap',
+  transition: 'all 0.2s ease',
+  fontSize: '15px',
+},
 
-  navButtonActive: {
-    background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
-    color: '#ffffff',
-    border: '1px solid #2563eb',
-    boxShadow: '0 14px 28px rgba(37,99,235,0.24)',
-  },
+navButtonActive: {
+  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+  color: '#ffffff',
+  border: '1px solid #2563eb',
+  boxShadow: '0 12px 24px rgba(37,99,235,0.20)',
+},
 
-  navButtonMobile: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    textAlign: 'center',
-    padding: '13px 14px',
-    borderRadius: '14px',
-  },
+navButtonMobile: {
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  textAlign: 'center',
+  padding: '13px 14px',
+  borderRadius: '14px',
+  background: '#ffffff',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 6px 14px rgba(15,23,42,0.04)',
+},
 
   dropdown: {
     position: 'relative',
@@ -867,4 +869,1195 @@ export const styles = {
     fontWeight: '800',
     textDecoration: 'none',
   },
+
+  dashboardHero: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  gap: '24px',
+  padding: '34px 36px',
+  borderRadius: '30px',
+  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
+  color: '#ffffff',
+  boxShadow: '0 28px 70px rgba(29,78,216,0.18)',
+  border: '1px solid rgba(255,255,255,0.06)',
+},
+
+dashboardHeroMobile: {
+  flexDirection: 'column',
+  alignItems: 'stretch',
+  padding: '24px 20px',
+  borderRadius: '24px',
+},
+
+dashboardHeroContent: {
+  maxWidth: '760px',
+},
+
+dashboardHeroEyebrow: {
+  margin: '0 0 10px 0',
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '2px',
+  opacity: 0.82,
+},
+
+dashboardHeroTitle: {
+  margin: 0,
+  fontSize: '52px',
+  fontWeight: '900',
+  lineHeight: 1.02,
+  letterSpacing: '-1.5px',
+},
+
+dashboardHeroTitleMobile: {
+  fontSize: '34px',
+  lineHeight: 1.08,
+},
+
+dashboardHeroText: {
+  marginTop: '14px',
+  fontSize: '17px',
+  lineHeight: 1.65,
+  color: 'rgba(255,255,255,0.86)',
+  maxWidth: '680px',
+},
+
+dashboardHeroTextMobile: {
+  fontSize: '15px',
+  lineHeight: 1.55,
+},
+
+dashboardHeroActions: {
+  display: 'flex',
+  gap: '12px',
+  flexWrap: 'wrap',
+},
+
+dashboardHeroActionsMobile: {
+  width: '100%',
+},
+
+dashboardPrimaryAction: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '13px 20px',
+  borderRadius: '16px',
+  textDecoration: 'none',
+  fontWeight: '800',
+  backgroundColor: '#ffffff',
+  color: '#1d4ed8',
+  boxShadow: '0 12px 24px rgba(0,0,0,0.16)',
+},
+
+dashboardSecondaryAction: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '13px 20px',
+  borderRadius: '16px',
+  textDecoration: 'none',
+  fontWeight: '800',
+  backgroundColor: 'rgba(255,255,255,0.10)',
+  color: '#ffffff',
+  border: '1px solid rgba(255,255,255,0.16)',
+},
+
+dashboardStatsGrid: {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+  gap: '18px',
+},
+
+dashboardStatsGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+dashboardStatCard: {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '24px',
+  padding: '24px',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 18px 38px rgba(15,23,42,0.06)',
+},
+
+dashboardStatCardAlert: {
+  background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)',
+  borderRadius: '24px',
+  padding: '24px',
+  border: '1px solid #fed7aa',
+  boxShadow: '0 18px 38px rgba(234,88,12,0.08)',
+},
+
+dashboardStatCardDanger: {
+  background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
+  borderRadius: '24px',
+  padding: '24px',
+  border: '1px solid #fecdd3',
+  boxShadow: '0 18px 38px rgba(244,63,94,0.08)',
+},
+
+dashboardStatLabel: {
+  margin: '0 0 10px 0',
+  fontSize: '14px',
+  color: '#64748b',
+  fontWeight: '800',
+},
+
+dashboardStatValue: {
+  margin: 0,
+  fontSize: '42px',
+  lineHeight: 1,
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-1px',
+},
+
+dashboardStatSub: {
+  marginTop: '10px',
+  color: '#64748b',
+  fontSize: '14px',
+  lineHeight: 1.5,
+},
+
+dashboardLayout: {
+  display: 'grid',
+  gridTemplateColumns: '1.35fr 0.9fr',
+  gap: '20px',
+  alignItems: 'start',
+},
+
+dashboardLayoutMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+dashboardMainColumn: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+},
+
+dashboardSideColumn: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+},
+
+dashboardPanel: {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '28px',
+  padding: '26px',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 20px 42px rgba(15,23,42,0.06)',
+},
+
+dashboardPanelHeader: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  gap: '16px',
+  marginBottom: '18px',
+},
+
+dashboardPanelEyebrow: {
+  margin: 0,
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '1.8px',
+  color: '#94a3b8',
+},
+
+dashboardPanelTitle: {
+  margin: '8px 0 0 0',
+  fontSize: '28px',
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-0.7px',
+},
+
+dashboardCountBadge: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minWidth: '42px',
+  height: '42px',
+  padding: '0 12px',
+  borderRadius: '999px',
+  backgroundColor: '#eff6ff',
+  color: '#1d4ed8',
+  fontWeight: '900',
+  border: '1px solid #bfdbfe',
+},
+
+dashboardCountBadgeDanger: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minWidth: '42px',
+  height: '42px',
+  padding: '0 12px',
+  borderRadius: '999px',
+  backgroundColor: '#fff1f2',
+  color: '#e11d48',
+  fontWeight: '900',
+  border: '1px solid #fecdd3',
+},
+
+dashboardEmptyText: {
+  margin: 0,
+  color: '#64748b',
+  fontSize: '15px',
+  lineHeight: 1.6,
+},
+
+dashboardList: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '14px',
+},
+
+dashboardListItem: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  gap: '14px',
+  padding: '16px 18px',
+  borderRadius: '18px',
+  backgroundColor: '#f8fafc',
+  border: '1px solid #e2e8f0',
+},
+
+dashboardListTitle: {
+  margin: 0,
+  fontSize: '16px',
+  fontWeight: '800',
+  color: '#0f172a',
+},
+
+dashboardListSub: {
+  margin: '6px 0 0 0',
+  fontSize: '13px',
+  color: '#64748b',
+},
+
+dashboardListRight: {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+  flexWrap: 'wrap',
+  justifyContent: 'flex-end',
+},
+
+dashboardPillWarning: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '8px 12px',
+  borderRadius: '999px',
+  backgroundColor: '#fff7ed',
+  color: '#c2410c',
+  fontWeight: '800',
+  fontSize: '13px',
+  border: '1px solid #fed7aa',
+},
+
+dashboardPillDanger: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '8px 12px',
+  borderRadius: '999px',
+  backgroundColor: '#fff1f2',
+  color: '#e11d48',
+  fontWeight: '800',
+  fontSize: '13px',
+  border: '1px solid #fecdd3',
+},
+
+dashboardRoomGrid: {
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '16px',
+},
+
+dashboardRoomCard: {
+  borderRadius: '22px',
+  padding: '22px',
+  background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 14px 30px rgba(15,23,42,0.05)',
+},
+
+dashboardRoomName: {
+  margin: 0,
+  fontSize: '14px',
+  fontWeight: '800',
+  color: '#64748b',
+},
+
+dashboardRoomValue: {
+  margin: '12px 0 0 0',
+  fontSize: '42px',
+  lineHeight: 1,
+  fontWeight: '900',
+  color: '#0f172a',
+},
+
+dashboardRoomSub: {
+  marginTop: '10px',
+  fontSize: '14px',
+  color: '#64748b',
+},
+
+dashboardMiniLink: {
+  display: 'inline-block',
+  marginTop: '14px',
+  textDecoration: 'none',
+  fontWeight: '800',
+  color: '#1d4ed8',
+  fontSize: '14px',
+},
+
+dashboardQuickActions: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+},
+
+dashboardQuickAction: {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '16px 18px',
+  borderRadius: '18px',
+  textDecoration: 'none',
+  fontWeight: '800',
+  color: '#0f172a',
+  backgroundColor: '#f8fafc',
+  border: '1px solid #e2e8f0',
+},
+
+navbarPro: {
+  position: 'sticky',
+  top: 0,
+  zIndex: 60,
+  display: 'grid',
+  gridTemplateColumns: '280px 1fr auto',
+  alignItems: 'center',
+  gap: '28px',
+  padding: '18px 28px',
+  background: 'rgba(255,255,255,0.86)',
+  backdropFilter: 'blur(18px)',
+  WebkitBackdropFilter: 'blur(18px)',
+  borderBottom: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 10px 28px rgba(15,23,42,0.04)',
+},
+
+navbarProMobile: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  padding: '14px 16px',
+},
+
+navbarProBrand: {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+},
+
+navbarProBrandBlock: {
+  display: 'flex',
+  flexDirection: 'column',
+},
+
+navbarProMiniLabel: {
+  margin: 0,
+  fontSize: '11px',
+  fontWeight: '900',
+  letterSpacing: '2px',
+  color: '#94a3b8',
+},
+
+navbarProTitle: {
+  margin: '4px 0 0 0',
+  fontSize: '34px',
+  lineHeight: 1,
+  fontWeight: '900',
+  letterSpacing: '-1.2px',
+  color: '#0f172a',
+},
+
+navbarProTitleMobile: {
+  margin: '4px 0 0 0',
+  fontSize: '24px',
+  lineHeight: 1,
+  fontWeight: '900',
+  letterSpacing: '-0.8px',
+  color: '#0f172a',
+},
+
+navbarProSub: {
+  margin: '8px 0 0 0',
+  fontSize: '13px',
+  color: '#64748b',
+  fontWeight: '500',
+},
+
+navbarProCenter: {
+  display: 'flex',
+  justifyContent: 'center',
+},
+
+navbarProNav: {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+  padding: '8px',
+  borderRadius: '20px',
+  background: 'rgba(248,250,252,0.92)',
+  border: '1px solid rgba(226,232,240,0.95)',
+  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.8)',
+},
+
+navbarProRight: {
+  display: 'flex',
+  justifyContent: 'flex-end',
+},
+
+navbarProUserButton: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '8px',
+  padding: '12px 16px',
+  borderRadius: '16px',
+  border: '1px solid rgba(191,219,254,1)',
+  background: 'linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%)',
+  color: '#1d4ed8',
+  fontWeight: '800',
+  fontSize: '15px',
+  cursor: 'pointer',
+  boxShadow: '0 8px 18px rgba(37,99,235,0.08)',
+},
+
+navbarProLogoutButton: {
+  width: '100%',
+  padding: '12px 14px',
+  borderRadius: '12px',
+  border: 'none',
+  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+  color: '#ffffff',
+  fontWeight: '800',
+  fontSize: '14px',
+  cursor: 'pointer',
+  boxShadow: '0 10px 20px rgba(239,68,68,0.18)',
+},
+
+navbarProMobileTop: {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: '12px',
+},
+
+navbarProMenuButton: {
+  border: '1px solid rgba(226,232,240,1)',
+  background: '#ffffff',
+  color: '#0f172a',
+  padding: '10px 14px',
+  borderRadius: '14px',
+  fontWeight: '800',
+  fontSize: '14px',
+  cursor: 'pointer',
+  boxShadow: '0 6px 16px rgba(15,23,42,0.05)',
+},
+
+navbarProMobilePanel: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  paddingTop: '4px',
+},
+
+navbarProMobileLinks: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+},
+
+navbarProMobileUserArea: {
+  marginTop: '2px',
+},
+
+dashboardSimpleTopGrid: {
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '18px',
+},
+
+dashboardSimpleTopGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+dashboardSimpleMainGrid: {
+  display: 'grid',
+  gridTemplateColumns: '1.35fr 0.9fr',
+  gap: '20px',
+  alignItems: 'start',
+},
+
+dashboardSimpleMainGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+dashboardSimpleTopGrid: {
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '18px',
+},
+
+dashboardSimpleTopGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+dashboardSimpleMainGrid: {
+  display: 'grid',
+  gridTemplateColumns: '1.35fr 0.9fr',
+  gap: '20px',
+  alignItems: 'start',
+},
+
+dashboardSimpleMainGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+movimentosHero: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  gap: '24px',
+  padding: '30px 34px',
+  borderRadius: '28px',
+  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
+  color: '#ffffff',
+  boxShadow: '0 24px 60px rgba(29,78,216,0.16)',
+  border: '1px solid rgba(255,255,255,0.06)',
+},
+
+movimentosHeroMobile: {
+  padding: '22px 20px',
+  borderRadius: '24px',
+},
+
+movimentosHeroEyebrow: {
+  margin: '0 0 10px 0',
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '2px',
+  opacity: 0.82,
+},
+
+movimentosHeroTitle: {
+  margin: 0,
+  fontSize: '46px',
+  fontWeight: '900',
+  letterSpacing: '-1.3px',
+  lineHeight: 1.04,
+},
+
+movimentosHeroTitleMobile: {
+  fontSize: '32px',
+},
+
+movimentosHeroText: {
+  marginTop: '14px',
+  fontSize: '16px',
+  lineHeight: 1.65,
+  color: 'rgba(255,255,255,0.86)',
+},
+
+movimentosHeroTextMobile: {
+  fontSize: '15px',
+  lineHeight: 1.55,
+},
+
+movimentosStatsGrid: {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+  gap: '18px',
+},
+
+movimentosStatsGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+movimentosStatCard: {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '24px',
+  padding: '24px',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 18px 38px rgba(15,23,42,0.06)',
+},
+
+movimentosStatCardSuccess: {
+  background: 'linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%)',
+  borderRadius: '24px',
+  padding: '24px',
+  border: '1px solid #a7f3d0',
+  boxShadow: '0 18px 38px rgba(16,185,129,0.08)',
+},
+
+movimentosStatCardDanger: {
+  background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
+  borderRadius: '24px',
+  padding: '24px',
+  border: '1px solid #fecdd3',
+  boxShadow: '0 18px 38px rgba(244,63,94,0.08)',
+},
+
+movimentosStatLabel: {
+  margin: '0 0 10px 0',
+  fontSize: '14px',
+  color: '#64748b',
+  fontWeight: '800',
+},
+
+movimentosStatValue: {
+  margin: 0,
+  fontSize: '42px',
+  lineHeight: 1,
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-1px',
+},
+
+movimentosStatSub: {
+  marginTop: '10px',
+  color: '#64748b',
+  fontSize: '14px',
+  lineHeight: 1.5,
+},
+
+movimentosPanel: {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '28px',
+  padding: '26px',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 20px 42px rgba(15,23,42,0.06)',
+},
+
+movimentosPanelHeader: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  gap: '16px',
+  marginBottom: '18px',
+},
+
+movimentosPanelEyebrow: {
+  margin: 0,
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '1.8px',
+  color: '#94a3b8',
+},
+
+movimentosPanelTitle: {
+  margin: '8px 0 0 0',
+  fontSize: '28px',
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-0.7px',
+},
+
+movimentosTable: {
+  width: '100%',
+  borderCollapse: 'separate',
+  borderSpacing: 0,
+  backgroundColor: '#ffffff',
+  borderRadius: '18px',
+  overflow: 'hidden',
+},
+
+movimentosTh: {
+  textAlign: 'left',
+  padding: '16px',
+  borderBottom: '1px solid #e2e8f0',
+  fontSize: '13px',
+  color: '#64748b',
+  backgroundColor: '#f8fafc',
+  fontWeight: '800',
+},
+
+movimentosTd: {
+  padding: '16px',
+  borderBottom: '1px solid #eef2f7',
+  fontSize: '14px',
+  color: '#334155',
+},
+
+movimentosTdStrong: {
+  padding: '16px',
+  borderBottom: '1px solid #eef2f7',
+  fontSize: '14px',
+  color: '#0f172a',
+  fontWeight: '800',
+},
+
+movimentosBadge: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '8px 12px',
+  borderRadius: '999px',
+  fontSize: '12px',
+  fontWeight: '800',
+},
+
+movimentosBadgeEntrada: {
+  backgroundColor: '#dcfce7',
+  color: '#166534',
+},
+
+movimentosBadgeSaida: {
+  backgroundColor: '#fee2e2',
+  color: '#991b1b',
+},
+
+materiaisHero: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  gap: '24px',
+  padding: '30px 34px',
+  borderRadius: '28px',
+  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
+  color: '#ffffff',
+  boxShadow: '0 24px 60px rgba(29,78,216,0.16)',
+  border: '1px solid rgba(255,255,255,0.06)',
+},
+
+materiaisHeroMobile: {
+  padding: '22px 20px',
+  borderRadius: '24px',
+},
+
+materiaisHeroEyebrow: {
+  margin: '0 0 10px 0',
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '2px',
+  opacity: 0.82,
+},
+
+materiaisHeroTitle: {
+  margin: 0,
+  fontSize: '46px',
+  fontWeight: '900',
+  letterSpacing: '-1.3px',
+  lineHeight: 1.04,
+},
+
+materiaisHeroTitleMobile: {
+  fontSize: '32px',
+},
+
+materiaisHeroText: {
+  marginTop: '14px',
+  fontSize: '16px',
+  lineHeight: 1.65,
+  color: 'rgba(255,255,255,0.86)',
+},
+
+materiaisHeroTextMobile: {
+  fontSize: '15px',
+  lineHeight: 1.55,
+},
+
+materiaisFiltrosPanel: {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '24px',
+  padding: '22px',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 18px 38px rgba(15,23,42,0.06)',
+},
+
+materiaisFiltrosGrid: {
+  display: 'grid',
+  gridTemplateColumns: '2fr 1fr',
+  gap: '16px',
+},
+
+materiaisFiltrosGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+materiaisPanel: {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '28px',
+  padding: '26px',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 20px 42px rgba(15,23,42,0.06)',
+},
+
+materiaisPanelHeader: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  gap: '16px',
+  marginBottom: '18px',
+},
+
+materiaisPanelEyebrow: {
+  margin: 0,
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '1.8px',
+  color: '#94a3b8',
+},
+
+materiaisPanelTitle: {
+  margin: '8px 0 0 0',
+  fontSize: '28px',
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-0.7px',
+},
+
+materiaisTable: {
+  width: '100%',
+  borderCollapse: 'separate',
+  borderSpacing: 0,
+  backgroundColor: '#ffffff',
+  borderRadius: '18px',
+  overflow: 'hidden',
+},
+
+materiaisTh: {
+  textAlign: 'left',
+  padding: '16px',
+  borderBottom: '1px solid #e2e8f0',
+  fontSize: '13px',
+  color: '#64748b',
+  backgroundColor: '#f8fafc',
+  fontWeight: '800',
+},
+
+materiaisTd: {
+  padding: '16px',
+  borderBottom: '1px solid #eef2f7',
+  fontSize: '14px',
+  color: '#334155',
+},
+
+materiaisTdMain: {
+  padding: '16px',
+  borderBottom: '1px solid #eef2f7',
+  minWidth: '220px',
+},
+
+materiaisNome: {
+  margin: 0,
+  fontSize: '15px',
+  fontWeight: '800',
+  color: '#0f172a',
+},
+
+materiaisDescricao: {
+  margin: '6px 0 0 0',
+  fontSize: '13px',
+  color: '#64748b',
+  lineHeight: 1.45,
+},
+
+materiaisEstadoBase: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '8px 12px',
+  borderRadius: '999px',
+  fontSize: '12px',
+  fontWeight: '800',
+},
+
+materiaisEstadoOk: {
+  backgroundColor: '#dcfce7',
+  color: '#166534',
+},
+
+materiaisEstadoWarning: {
+  backgroundColor: '#fff7ed',
+  color: '#c2410c',
+},
+
+materiaisEstadoDanger: {
+  backgroundColor: '#fff1f2',
+  color: '#e11d48',
+},
+adicionarHero: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  gap: '24px',
+  padding: '30px 34px',
+  borderRadius: '28px',
+  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
+  color: '#ffffff',
+  boxShadow: '0 24px 60px rgba(29,78,216,0.16)',
+  border: '1px solid rgba(255,255,255,0.06)',
+},
+
+adicionarHeroMobile: {
+  padding: '22px 20px',
+  borderRadius: '24px',
+},
+
+adicionarHeroEyebrow: {
+  margin: '0 0 10px 0',
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '2px',
+  opacity: 0.82,
+},
+
+adicionarHeroTitle: {
+  margin: 0,
+  fontSize: '46px',
+  fontWeight: '900',
+  letterSpacing: '-1.3px',
+  lineHeight: 1.04,
+},
+
+adicionarHeroTitleMobile: {
+  fontSize: '32px',
+},
+
+adicionarHeroText: {
+  marginTop: '14px',
+  fontSize: '16px',
+  lineHeight: 1.65,
+  color: 'rgba(255,255,255,0.86)',
+},
+
+adicionarHeroTextMobile: {
+  fontSize: '15px',
+  lineHeight: 1.55,
+},
+
+adicionarPanel: {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '28px',
+  padding: '26px',
+  border: '1px solid rgba(226,232,240,0.9)',
+  boxShadow: '0 20px 42px rgba(15,23,42,0.06)',
+},
+
+adicionarPanelHeader: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  gap: '16px',
+  marginBottom: '18px',
+},
+
+adicionarPanelEyebrow: {
+  margin: 0,
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '1.8px',
+  color: '#94a3b8',
+},
+
+adicionarPanelTitle: {
+  margin: '8px 0 0 0',
+  fontSize: '28px',
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-0.7px',
+},
+
+adicionarModoWrap: {
+  marginBottom: '24px',
+},
+
+adicionarModoGrid: {
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '12px',
+  marginTop: '10px',
+},
+
+adicionarModoGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+adicionarModoButton: {
+  padding: '14px 16px',
+  borderRadius: '16px',
+  border: '1px solid #dbeafe',
+  background: '#ffffff',
+  color: '#1d4ed8',
+  fontWeight: '800',
+  fontSize: '14px',
+  cursor: 'pointer',
+  boxShadow: '0 8px 18px rgba(59,130,246,0.06)',
+},
+
+adicionarModoButtonActive: {
+  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+  color: '#ffffff',
+  border: '1px solid #2563eb',
+  boxShadow: '0 14px 24px rgba(37,99,235,0.18)',
+},
+
+adicionarSection: {
+  padding: '20px 0',
+  borderTop: '1px solid rgba(226,232,240,0.9)',
+},
+
+adicionarSectionTitle: {
+  margin: '0 0 16px 0',
+  fontSize: '18px',
+  fontWeight: '800',
+  color: '#0f172a',
+},
+
+adicionarTwoColumnsMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+adicionarActions: {
+  marginTop: '8px',
+  display: 'flex',
+  justifyContent: 'flex-start',
+},
+salaHero: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  gap: '24px',
+  padding: '30px 34px',
+  borderRadius: '28px',
+  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
+  color: '#ffffff',
+  boxShadow: '0 24px 60px rgba(29,78,216,0.16)',
+  border: '1px solid rgba(255,255,255,0.06)',
+  flexWrap: 'wrap',
+},
+
+salaHeroEyebrow: {
+  margin: '0 0 10px 0',
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '2px',
+  opacity: 0.82,
+},
+
+salaHeroTitle: {
+  margin: 0,
+  fontSize: '44px',
+  fontWeight: '900',
+  letterSpacing: '-1.2px',
+  lineHeight: 1.04,
+},
+
+salaHeroText: {
+  marginTop: '14px',
+  fontSize: '16px',
+  lineHeight: 1.65,
+  color: 'rgba(255,255,255,0.86)',
+  maxWidth: '680px',
+},
+
+salaHeroActions: {
+  display: 'flex',
+  gap: '12px',
+  flexWrap: 'wrap',
+},
+
+salaGrid: {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+  gap: '20px',
+},
+
+salaCard: {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  borderRadius: '28px',
+  padding: '24px',
+  boxShadow: '0 18px 38px rgba(15,23,42,0.07)',
+  border: '1px solid rgba(226,232,240,0.9)',
+},
+
+salaCardTop: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  gap: '14px',
+},
+
+salaCardTitle: {
+  margin: 0,
+  fontSize: '22px',
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-0.5px',
+},
+
+salaCardSub: {
+  margin: '8px 0 0 0',
+  color: '#64748b',
+  fontSize: '14px',
+  lineHeight: 1.5,
+},
+
+salaCardBadge: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '8px 12px',
+  borderRadius: '999px',
+  backgroundColor: '#dbeafe',
+  color: '#1d4ed8',
+  fontSize: '12px',
+  fontWeight: '800',
+  whiteSpace: 'nowrap',
+},
+
+salaStockBox: {
+  marginTop: '22px',
+  padding: '18px 20px',
+  borderRadius: '20px',
+  background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+  border: '1px solid #e2e8f0',
+},
+
+salaStockLabel: {
+  margin: 0,
+  fontSize: '13px',
+  fontWeight: '800',
+  color: '#64748b',
+  letterSpacing: '0.4px',
+},
+
+salaStockValue: {
+  margin: '10px 0 0 0',
+  fontSize: '40px',
+  lineHeight: 1,
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-1px',
+},
+
+salaStockUnit: {
+  fontSize: '16px',
+  color: '#64748b',
+  fontWeight: '700',
+},
+
+salaActionSection: {
+  marginTop: '20px',
+  paddingTop: '18px',
+  borderTop: '1px solid rgba(226,232,240,0.9)',
+},
 }
