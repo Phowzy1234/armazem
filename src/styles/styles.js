@@ -2075,4 +2075,68 @@ estadoObsoleto: {
   backgroundColor: '#e5e7eb',
   color: '#374151',
 },
+
+materiaisQuickWrap: {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  flexWrap: 'wrap',
+},
+
+materiaisQuickSelect: {
+  minWidth: '120px',
+  padding: '9px 10px',
+  borderRadius: '12px',
+  border: '1px solid #cbd5e1',
+  backgroundColor: '#ffffff',
+  fontSize: '13px',
+  color: '#0f172a',
+},
+
+materiaisQuickInput: {
+  width: '70px',
+  padding: '9px 10px',
+  borderRadius: '12px',
+  border: '1px solid #cbd5e1',
+  backgroundColor: '#ffffff',
+  fontSize: '13px',
+  color: '#0f172a',
+},
+
+materiaisQuickPlus: {
+  width: '36px',
+  height: '36px',
+  borderRadius: '12px',
+  border: 'none',
+  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+  color: '#ffffff',
+  fontSize: '20px',
+  fontWeight: '900',
+  cursor: 'pointer',
+},
+
+materiaisQuickMinus: {
+  width: '36px',
+  height: '36px',
+  borderRadius: '12px',
+  border: 'none',
+  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+  color: '#ffffff',
+  fontSize: '20px',
+  fontWeight: '900',
+  cursor: 'pointer',
+},
+materiaisQuickSalaTag: {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '9px 12px',
+  borderRadius: '12px',
+  backgroundColor: '#eff6ff',
+  color: '#1d4ed8',
+  fontSize: '12px',
+  fontWeight: '800',
+  border: '1px solid #bfdbfe',
+  minWidth: '110px',
+},
 }

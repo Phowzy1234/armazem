@@ -2,13 +2,17 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../Lib/supabase'
 import { styles } from '../styles/styles'
+import { getAuthUserId } from '../Lib/authUser'
 
 function Materiais() {
   const [materiais, setMateriais] = useState([])
   const [pesquisa, setPesquisa] = useState('')
   const [filtro, setFiltro] = useState('todos')
   const [erro, setErro] = useState('')
+  const [mensagem, setMensagem] = useState('')
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
+
+  const [quantidadePorMaterial, setQuantidadePorMaterial] = useState({})
 
   useEffect(() => {
     carregarMateriais()
@@ -110,6 +114,103 @@ function Materiais() {
     return { texto: 'Novo', estilo: styles.estadoNovo }
   }
 
+  function getQuantidade(materialId) {
+    return quantidadePorMaterial[materialId] || '1'
+  }
+
+  function setQuantidade(materialId, valor) {
+    setQuantidadePorMaterial((prev) => ({
+      ...prev,
+      [materialId]: valor,
+    }))
+  }
+
+  function getSalaAutomatica(material) {
+    if (filtro === 'sala1') {
+      return 1
+    }
+
+    if (filtro === 'sala2') {
+      return 2
+    }
+
+    const sala1 = Number(material.sala1 || 0)
+    const sala2 = Number(material.sala2 || 0)
+
+    if (sala1 > 0 && sala2 <= 0) return 1
+    if (sala2 > 0 && sala1 <= 0) return 2
+
+    if (sala1 > 0 && sala2 > 0) {
+      return sala1 >= sala2 ? 1 : 2
+    }
+
+    return 1
+  }
+
+  function getNomeSalaAutomatica(material) {
+    const salaId = getSalaAutomatica(material)
+    return salaId === 1 ? 'Sala DSTI' : 'Armazém'
+  }
+
+  async function registarMovimento(material, tipo) {
+    setErro('')
+    setMensagem('')
+
+    const utilizadorId = await getAuthUserId()
+
+    if (!utilizadorId) {
+      setErro('Não foi possível identificar o utilizador autenticado.')
+      return
+    }
+
+    const salaId = getSalaAutomatica(material)
+    const quantidade = Number(getQuantidade(material.id))
+
+    if (!quantidade || quantidade <= 0) {
+      setErro('A quantidade tem de ser maior que zero.')
+      return
+    }
+
+    if (tipo === 'saida') {
+      const stockSala =
+        Number(salaId) === 1 ? Number(material.sala1 || 0) : Number(material.sala2 || 0)
+
+      if (quantidade > stockSala) {
+        setErro(
+          `Não podes retirar mais do que o stock existente em ${material.nome} na ${getNomeSalaAutomatica(
+            material
+          )}.`
+        )
+        return
+      }
+    }
+
+    const { error } = await supabase
+      .from('movimentos_stock')
+      .insert([
+        {
+          material_id: Number(material.id),
+          sala_id: Number(salaId),
+          tipo,
+          quantidade,
+          utilizador_auth_id: utilizadorId,
+        },
+      ])
+
+    if (error) {
+      setErro(error.message)
+      return
+    }
+
+    setMensagem(
+      tipo === 'entrada'
+        ? `Adicionado stock a ${material.nome} na ${getNomeSalaAutomatica(material)}.`
+        : `Retirado stock de ${material.nome} na ${getNomeSalaAutomatica(material)}.`
+    )
+
+    await carregarMateriais()
+  }
+
   const materiaisFiltrados = useMemo(() => {
     return materiais.filter((material) => {
       const matchPesquisa =
@@ -165,12 +266,13 @@ function Materiais() {
               ...(isMobile ? styles.materiaisHeroTextMobile : {}),
             }}
           >
-            Consulta, procura e analisa rapidamente os materiais ativos do armazém.
+            Consulta, procura e ajusta rapidamente os materiais ativos do armazém.
           </p>
         </div>
       </section>
 
       {erro && <div style={styles.alertError}>Erro: {erro}</div>}
+      {mensagem && <div style={styles.alertSuccess}>{mensagem}</div>}
 
       <section style={styles.materiaisFiltrosPanel}>
         <div
@@ -229,10 +331,9 @@ function Materiais() {
                   <th style={styles.materiaisTh}>Material</th>
                   <th style={styles.materiaisTh}>Sala DSTI</th>
                   <th style={styles.materiaisTh}>Armazém</th>
-                  <th style={styles.materiaisTh}>Total</th>
-                  <th style={styles.materiaisTh}>Mínimo</th>
                   <th style={styles.materiaisTh}>Estado stock</th>
                   <th style={styles.materiaisTh}>Estado físico</th>
+                  <th style={styles.materiaisTh}>Movimento rápido</th>
                   <th style={styles.materiaisTh}>Ações</th>
                 </tr>
               </thead>
@@ -255,12 +356,6 @@ function Materiais() {
 
                       <td style={styles.materiaisTd}>{material.sala1}</td>
                       <td style={styles.materiaisTd}>{material.sala2}</td>
-                      <td style={styles.materiaisTd}>
-                        {material.total} {material.unidade}
-                      </td>
-                      <td style={styles.materiaisTd}>
-                        {material.stock_minimo || 0}
-                      </td>
 
                       <td style={styles.materiaisTd}>
                         <span
@@ -282,6 +377,40 @@ function Materiais() {
                         >
                           {fisico.texto}
                         </span>
+                      </td>
+
+                      <td style={styles.materiaisTd}>
+                        <div style={styles.materiaisQuickWrap}>
+                          <span style={styles.materiaisQuickSalaTag}>
+                            {getNomeSalaAutomatica(material)}
+                          </span>
+
+                          <input
+                            type="number"
+                            min="1"
+                            value={getQuantidade(material.id)}
+                            onChange={(e) =>
+                              setQuantidade(material.id, e.target.value)
+                            }
+                            style={styles.materiaisQuickInput}
+                          />
+
+                          <button
+                            type="button"
+                            onClick={() => registarMovimento(material, 'saida')}
+                            style={styles.materiaisQuickMinus}
+                          >
+                            −
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => registarMovimento(material, 'entrada')}
+                            style={styles.materiaisQuickPlus}
+                          >
+                            +
+                          </button>
+                        </div>
                       </td>
 
                       <td style={styles.materiaisTd}>

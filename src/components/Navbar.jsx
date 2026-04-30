@@ -151,55 +151,6 @@ function Navbar() {
         Adicionar
       </Link>
 
-      <div ref={dropdownSalasRef} style={styles.dropdown}>
-        <button
-          type="button"
-          onClick={toggleMenuSalas}
-          style={{
-            ...styles.navButton,
-            ...(rotaSalaAtiva ? styles.navButtonActive : {}),
-            ...styles.dropdownButton,
-            ...(isMobile ? styles.navButtonMobile : {}),
-          }}
-        >
-          Salas <span style={styles.dropdownArrow}>▾</span>
-        </button>
-
-        {menuSalasAberto && (
-          <div
-            style={{
-              ...styles.dropdownMenu,
-              ...(isMobile ? styles.dropdownMenuMobile : {}),
-            }}
-          >
-            <Link
-              to="/sala1"
-              onClick={fecharTudo}
-              style={{
-                ...styles.dropdownItem,
-                ...(location.pathname === '/sala1'
-                  ? styles.dropdownItemActive
-                  : {}),
-              }}
-            >
-              Sala DSTI
-            </Link>
-
-            <Link
-              to="/sala2"
-              onClick={fecharTudo}
-              style={{
-                ...styles.dropdownItem,
-                ...(location.pathname === '/sala2'
-                  ? styles.dropdownItemActive
-                  : {}),
-              }}
-            >
-              Armazém
-            </Link>
-          </div>
-        )}
-      </div>
     </>
   )
 
