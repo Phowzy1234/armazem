@@ -69,6 +69,18 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
     }
   }
 
+  function estadoFisico(item) {
+    if (item.estado === 'Usado') {
+      return { texto: 'Usado', estilo: styles.estadoUsado }
+    }
+
+    if (item.estado === 'Obsoleto') {
+      return { texto: 'Obsoleto', estilo: styles.estadoObsoleto }
+    }
+
+    return { texto: 'Novo', estilo: styles.estadoNovo }
+  }
+
   return (
     <div style={styles.pageContent}>
       <section style={styles.salaHero}>
@@ -96,59 +108,82 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
         </div>
       ) : (
         <div style={styles.salaGrid}>
-          {lista.map((item) => (
-            <div key={item.id} style={styles.salaCard}>
-              <div style={styles.salaCardTop}>
-                <div>
-                  <h3 style={styles.salaCardTitle}>{item.nome}</h3>
-                  <p style={styles.salaCardSub}>
-                    {item.descricao || 'Sem descrição'}
-                  </p>
+          {lista.map((item) => {
+            const fisico = estadoFisico(item)
+
+            return (
+              <div key={item.id} style={styles.salaCard}>
+                <div style={styles.salaCardTop}>
+                  <div>
+                    <h3 style={styles.salaCardTitle}>{item.nome}</h3>
+                    <p style={styles.salaCardSub}>
+                      {item.descricao || 'Sem descrição'}
+                    </p>
+                  </div>
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '8px',
+                      alignItems: 'flex-end',
+                    }}
+                  >
+                    <span style={styles.salaCardBadge}>{item.unidade}</span>
+
+                    <span
+                      style={{
+                        ...styles.materiaisEstadoBase,
+                        ...fisico.estilo,
+                      }}
+                    >
+                      {fisico.texto}
+                    </span>
+                  </div>
                 </div>
 
-                <span style={styles.salaCardBadge}>{item.unidade}</span>
-              </div>
+                <div style={styles.salaStockBox}>
+                  <p style={styles.salaStockLabel}>Stock atual</p>
+                  <h2 style={styles.salaStockValue}>
+                    {item.quantidade}{' '}
+                    <span style={styles.salaStockUnit}>{item.unidade}</span>
+                  </h2>
+                </div>
 
-              <div style={styles.salaStockBox}>
-                <p style={styles.salaStockLabel}>Stock atual</p>
-                <h2 style={styles.salaStockValue}>
-                  {item.quantidade} <span style={styles.salaStockUnit}>{item.unidade}</span>
-                </h2>
-              </div>
+                <div style={styles.salaActionSection}>
+                  <label style={styles.quickActionLabel}>Quantidade</label>
 
-              <div style={styles.salaActionSection}>
-                <label style={styles.quickActionLabel}>Quantidade</label>
+                  <div style={styles.quickActionRow}>
+                    <input
+                      type="number"
+                      min="1"
+                      value={getQuantidade(item.id)}
+                      onChange={(e) => setQuantidade(item.id, e.target.value)}
+                      style={styles.quickQuantityInput}
+                    />
 
-                <div style={styles.quickActionRow}>
-                  <input
-                    type="number"
-                    min="1"
-                    value={getQuantidade(item.id)}
-                    onChange={(e) => setQuantidade(item.id, e.target.value)}
-                    style={styles.quickQuantityInput}
-                  />
+                    <button
+                      type="button"
+                      onClick={() => moverStock(item, 'saida')}
+                      style={styles.minusButton}
+                      title="Retirar stock"
+                    >
+                      −
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={() => moverStock(item, 'saida')}
-                    style={styles.minusButton}
-                    title="Retirar stock"
-                  >
-                    −
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => moverStock(item, 'entrada')}
-                    style={styles.plusButton}
-                    title="Adicionar stock"
-                  >
-                    +
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => moverStock(item, 'entrada')}
+                      style={styles.plusButton}
+                      title="Adicionar stock"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
 

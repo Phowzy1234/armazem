@@ -2060,4 +2060,19 @@ salaActionSection: {
   paddingTop: '18px',
   borderTop: '1px solid rgba(226,232,240,0.9)',
 },
+
+estadoNovo: {
+  backgroundColor: '#dcfce7',
+  color: '#166534',
+},
+
+estadoUsado: {
+  backgroundColor: '#fef3c7',
+  color: '#92400e',
+},
+
+estadoObsoleto: {
+  backgroundColor: '#e5e7eb',
+  color: '#374151',
+},
 }

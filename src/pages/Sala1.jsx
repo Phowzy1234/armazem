@@ -22,6 +22,7 @@ function Sala1() {
           nome,
           descricao,
           unidade,
+          estado,
           ativo
         )
       `)
@@ -44,6 +45,7 @@ function Sala1() {
           nome: material.nome,
           descricao: material.descricao,
           unidade: material.unidade,
+          estado: material.estado,
           quantidade: 0,
         }
       }

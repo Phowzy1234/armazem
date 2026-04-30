@@ -165,7 +165,7 @@ function Dashboard() {
         }}
       >
         <div style={styles.dashboardStatCardAlert}>
-          <p style={styles.dashboardStatLabel}>Materiais críticos</p>
+          <p style={styles.dashboardStatLabel}>Monitorização de Stock Baixo</p>
           <h3 style={styles.dashboardStatValue}>{dados.materiaisCriticos.length}</h3>
           <p style={styles.dashboardStatSub}>Precisam de atenção em breve</p>
         </div>

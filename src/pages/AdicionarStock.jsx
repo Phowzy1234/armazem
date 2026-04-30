@@ -13,6 +13,7 @@ function AdicionarStock() {
   const [descricao, setDescricao] = useState('')
   const [unidade, setUnidade] = useState('')
   const [stockMinimo, setStockMinimo] = useState('')
+  const [estado, setEstado] = useState('Novo')
   const [salaId, setSalaId] = useState('')
   const [quantidade, setQuantidade] = useState('')
 
@@ -99,6 +100,7 @@ function AdicionarStock() {
             descricao,
             unidade,
             stock_minimo: Number(stockMinimo || 0),
+            estado,
           },
         ])
         .select()
@@ -142,6 +144,7 @@ function AdicionarStock() {
     setDescricao('')
     setUnidade('')
     setStockMinimo('')
+    setEstado('Novo')
     setSalaId('')
     setQuantidade('')
 
@@ -300,6 +303,19 @@ function AdicionarStock() {
                     placeholder="Ex: 5"
                   />
                 </div>
+              </div>
+
+              <div style={styles.formGroup}>
+                <label style={styles.label}>Estado</label>
+                <select
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value)}
+                  style={styles.input}
+                >
+                  <option value="Novo">Novo</option>
+                  <option value="Usado">Usado</option>
+                  <option value="Obsoleto">Obsoleto/Avariado</option>
+                </select>
               </div>
             </div>
           )}

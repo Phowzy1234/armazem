@@ -74,7 +74,7 @@ function Materiais() {
     setMateriais(listaFinal)
   }
 
-  function estadoMaterial(material) {
+  function estadoStock(material) {
     const minimo = Number(material.stock_minimo || 0)
     const total = Number(material.total || 0)
 
@@ -96,6 +96,18 @@ function Materiais() {
       texto: 'Normal',
       estilo: styles.materiaisEstadoOk,
     }
+  }
+
+  function estadoFisico(material) {
+    if (material.estado === 'Usado') {
+      return { texto: 'Usado', estilo: styles.estadoUsado }
+    }
+
+    if (material.estado === 'Obsoleto') {
+      return { texto: 'Obsoleto', estilo: styles.estadoObsoleto }
+    }
+
+    return { texto: 'Novo', estilo: styles.estadoNovo }
   }
 
   const materiaisFiltrados = useMemo(() => {
@@ -219,14 +231,16 @@ function Materiais() {
                   <th style={styles.materiaisTh}>Armazém</th>
                   <th style={styles.materiaisTh}>Total</th>
                   <th style={styles.materiaisTh}>Mínimo</th>
-                  <th style={styles.materiaisTh}>Estado</th>
+                  <th style={styles.materiaisTh}>Estado stock</th>
+                  <th style={styles.materiaisTh}>Estado físico</th>
                   <th style={styles.materiaisTh}>Ações</th>
                 </tr>
               </thead>
 
               <tbody>
                 {materiaisFiltrados.map((material) => {
-                  const estado = estadoMaterial(material)
+                  const stock = estadoStock(material)
+                  const fisico = estadoFisico(material)
 
                   return (
                     <tr key={material.id}>
@@ -252,10 +266,21 @@ function Materiais() {
                         <span
                           style={{
                             ...styles.materiaisEstadoBase,
-                            ...estado.estilo,
+                            ...stock.estilo,
                           }}
                         >
-                          {estado.texto}
+                          {stock.texto}
+                        </span>
+                      </td>
+
+                      <td style={styles.materiaisTd}>
+                        <span
+                          style={{
+                            ...styles.materiaisEstadoBase,
+                            ...fisico.estilo,
+                          }}
+                        >
+                          {fisico.texto}
                         </span>
                       </td>
 
