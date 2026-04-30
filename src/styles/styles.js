@@ -2139,4 +2139,15 @@ materiaisQuickSalaTag: {
   border: '1px solid #bfdbfe',
   minWidth: '110px',
 },
+
+materiaisFiltroInfo: {
+  marginBottom: '18px',
+  padding: '14px 16px',
+  borderRadius: '16px',
+  backgroundColor: '#eff6ff',
+  color: '#1d4ed8',
+  border: '1px solid #bfdbfe',
+  fontSize: '14px',
+  lineHeight: 1.5,
+},
 }

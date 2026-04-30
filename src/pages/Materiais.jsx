@@ -11,7 +11,6 @@ function Materiais() {
   const [erro, setErro] = useState('')
   const [mensagem, setMensagem] = useState('')
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
-
   const [quantidadePorMaterial, setQuantidadePorMaterial] = useState({})
 
   useEffect(() => {
@@ -125,31 +124,23 @@ function Materiais() {
     }))
   }
 
-  function getSalaAutomatica(material) {
-    if (filtro === 'sala1') {
-      return 1
-    }
-
-    if (filtro === 'sala2') {
-      return 2
-    }
+    function getSalaDoFiltro(material) {
+    if (filtro === 'sala1') return 1
+    if (filtro === 'sala2') return 2
 
     const sala1 = Number(material.sala1 || 0)
     const sala2 = Number(material.sala2 || 0)
 
     if (sala1 > 0 && sala2 <= 0) return 1
     if (sala2 > 0 && sala1 <= 0) return 2
+    if (sala1 >= sala2) return 1
 
-    if (sala1 > 0 && sala2 > 0) {
-      return sala1 >= sala2 ? 1 : 2
-    }
-
-    return 1
+    return 2
   }
 
-  function getNomeSalaAutomatica(material) {
-    const salaId = getSalaAutomatica(material)
-    return salaId === 1 ? 'Sala DSTI' : 'Armazém'
+  function getNomeSalaDoFiltro(material) {
+  const salaId = getSalaDoFiltro(material)
+  return salaId === 1 ? 'Sala DSTI' : 'Armazém'
   }
 
   async function registarMovimento(material, tipo) {
@@ -163,7 +154,10 @@ function Materiais() {
       return
     }
 
-    const salaId = getSalaAutomatica(material)
+    const salaId = getSalaDoFiltro(material)
+
+    
+
     const quantidade = Number(getQuantidade(material.id))
 
     if (!quantidade || quantidade <= 0) {
@@ -173,13 +167,11 @@ function Materiais() {
 
     if (tipo === 'saida') {
       const stockSala =
-        Number(salaId) === 1 ? Number(material.sala1 || 0) : Number(material.sala2 || 0)
+        salaId === 1 ? Number(material.sala1 || 0) : Number(material.sala2 || 0)
 
       if (quantidade > stockSala) {
         setErro(
-          `Não podes retirar mais do que o stock existente em ${material.nome} na ${getNomeSalaAutomatica(
-            material
-          )}.`
+          `Não podes retirar mais do que o stock existente em ${material.nome} na ${getNomeSalaDoFiltro(material)}.`
         )
         return
       }
@@ -190,7 +182,7 @@ function Materiais() {
       .insert([
         {
           material_id: Number(material.id),
-          sala_id: Number(salaId),
+          sala_id: salaId,
           tipo,
           quantidade,
           utilizador_auth_id: utilizadorId,
@@ -204,8 +196,8 @@ function Materiais() {
 
     setMensagem(
       tipo === 'entrada'
-        ? `Adicionado stock a ${material.nome} na ${getNomeSalaAutomatica(material)}.`
-        : `Retirado stock de ${material.nome} na ${getNomeSalaAutomatica(material)}.`
+        ? `Adicionado stock a ${material.nome} na ${getNomeSalaDoFiltro(material)}.`
+        : `Retirado stock de ${material.nome} na ${getNomeSalaDoFiltro(material)}.`
     )
 
     await carregarMateriais()
@@ -219,24 +211,8 @@ function Materiais() {
 
       if (!matchPesquisa) return false
 
-      if (filtro === 'baixo') {
-        return (
-          Number(material.stock_minimo || 0) > 0 &&
-          material.total <= Number(material.stock_minimo || 0)
-        )
-      }
-
-      if (filtro === 'semstock') {
-        return material.total <= 0
-      }
-
-      if (filtro === 'sala1') {
-        return material.sala1 > 0
-      }
-
-      if (filtro === 'sala2') {
-        return material.sala2 > 0
-      }
+      if (filtro === 'sala1') return material.sala1 > 0
+      if (filtro === 'sala2') return material.sala2 > 0
 
       return true
     })
@@ -266,7 +242,7 @@ function Materiais() {
               ...(isMobile ? styles.materiaisHeroTextMobile : {}),
             }}
           >
-            Consulta, procura e ajusta rapidamente os materiais ativos do armazém.
+            Consulta e ajusta rapidamente os materiais do armazém.
           </p>
         </div>
       </section>
@@ -300,10 +276,8 @@ function Materiais() {
               style={styles.input}
             >
               <option value="todos">Todos</option>
-              <option value="baixo">Stock crítico</option>
-              <option value="semstock">Sem stock</option>
-              <option value="sala1">Com stock na Sala DSTI</option>
-              <option value="sala2">Com stock no Armazém</option>
+              <option value="sala1">Sala DSTI</option>
+              <option value="sala2">Armazém</option>
             </select>
           </div>
         </div>
@@ -320,6 +294,13 @@ function Materiais() {
             {materiaisFiltrados.length}
           </span>
         </div>
+
+        {filtro === 'todos' && (
+          <div style={styles.materiaisFiltroInfo}>
+            Escolhe <strong>Sala DSTI</strong> ou <strong>Armazém</strong> no filtro
+            para usar os botões de movimento rápido.
+          </div>
+        )}
 
         {materiaisFiltrados.length === 0 ? (
           <p style={styles.dashboardEmptyText}>Não foram encontrados materiais.</p>
@@ -381,10 +362,6 @@ function Materiais() {
 
                       <td style={styles.materiaisTd}>
                         <div style={styles.materiaisQuickWrap}>
-                          <span style={styles.materiaisQuickSalaTag}>
-                            {getNomeSalaAutomatica(material)}
-                          </span>
-
                           <input
                             type="number"
                             min="1"
