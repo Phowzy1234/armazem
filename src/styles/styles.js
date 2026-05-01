@@ -1,14 +1,10 @@
 export const styles = {
   app: {
-    minHeight: '100vh',
-    background: `
-      radial-gradient(circle at top left, rgba(59,130,246,0.20), transparent 24%),
-      radial-gradient(circle at top right, rgba(16,185,129,0.10), transparent 20%),
-      linear-gradient(180deg, #f8fbff 0%, #eef4ff 45%, #f7f9fc 100%)
-    `,
-    color: '#0f172a',
-    fontFamily: 'Inter, Arial, sans-serif',
-  },
+  minHeight: '100vh',
+  background: '#f8fafc',
+  color: '#0f172a',
+  fontFamily: 'Inter, Arial, sans-serif',
+},
 
   navbar: {
     position: 'sticky',
@@ -524,9 +520,9 @@ navButtonMobile: {
     fontSize: '15px',
     outline: 'none',
     boxSizing: 'border-box',
-    backgroundColor: '#f8fbff',
+    backgroundColor: '#ffffff',
     color: '#0f172a',
-    boxShadow: 'inset 0 1px 2px rgba(15,23,42,0.03)',
+    boxShadow: 'none',
   },
 
   twoColumns: {
@@ -871,17 +867,17 @@ navButtonMobile: {
   },
 
   dashboardHero: {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'flex-end',
-  gap: '24px',
-  padding: '34px 36px',
-  borderRadius: '30px',
-  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
-  color: '#ffffff',
-  boxShadow: '0 28px 70px rgba(29,78,216,0.18)',
-  border: '1px solid rgba(255,255,255,0.06)',
-},
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    gap: '24px',
+    padding: '30px 34px',
+    borderRadius: '30px',
+    background: 'linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
+    color: '#0f172a',
+    boxShadow: '0 16px 36px rgba(15,23,42,0.06)',
+    border: '1px solid #e2e8f0',
+  },
 
 dashboardHeroMobile: {
   flexDirection: 'column',
@@ -899,7 +895,7 @@ dashboardHeroEyebrow: {
   fontSize: '12px',
   fontWeight: '800',
   letterSpacing: '2px',
-  opacity: 0.82,
+  color: '#64748b',
 },
 
 dashboardHeroTitle: {
@@ -917,9 +913,9 @@ dashboardHeroTitleMobile: {
 
 dashboardHeroText: {
   marginTop: '14px',
-  fontSize: '17px',
+  fontSize: '16px',
   lineHeight: 1.65,
-  color: 'rgba(255,255,255,0.86)',
+  color: '#64748b',
   maxWidth: '680px',
 },
 
@@ -946,9 +942,9 @@ dashboardPrimaryAction: {
   borderRadius: '16px',
   textDecoration: 'none',
   fontWeight: '800',
-  backgroundColor: '#ffffff',
-  color: '#1d4ed8',
-  boxShadow: '0 12px 24px rgba(0,0,0,0.16)',
+  backgroundColor: '#1d4ed8',
+  color: '#ffffff',
+  boxShadow: '0 10px 20px rgba(37,99,235,0.14)',
 },
 
 dashboardSecondaryAction: {
@@ -959,9 +955,9 @@ dashboardSecondaryAction: {
   borderRadius: '16px',
   textDecoration: 'none',
   fontWeight: '800',
-  backgroundColor: 'rgba(255,255,255,0.10)',
-  color: '#ffffff',
-  border: '1px solid rgba(255,255,255,0.16)',
+  backgroundColor: '#ffffff',
+  color: '#334155',
+  border: '1px solid #e2e8f0',
 },
 
 dashboardStatsGrid: {
@@ -983,19 +979,19 @@ dashboardStatCard: {
 },
 
 dashboardStatCardAlert: {
-  background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)',
+  background: '#fffaf5',
   borderRadius: '24px',
   padding: '24px',
-  border: '1px solid #fed7aa',
-  boxShadow: '0 18px 38px rgba(234,88,12,0.08)',
+  border: '1px solid #fde7c7',
+  boxShadow: '0 12px 24px rgba(234,88,12,0.05)',
 },
 
 dashboardStatCardDanger: {
-  background: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
+  background: '#fff6f7',
   borderRadius: '24px',
   padding: '24px',
-  border: '1px solid #fecdd3',
-  boxShadow: '0 18px 38px rgba(244,63,94,0.08)',
+  border: '1px solid #ffd8de',
+  boxShadow: '0 12px 24px rgba(244,63,94,0.05)',
 },
 
 dashboardStatLabel: {
@@ -1436,12 +1432,12 @@ movimentosHero: {
   justifyContent: 'space-between',
   alignItems: 'flex-end',
   gap: '24px',
-  padding: '30px 34px',
+  padding: '28px 32px',
   borderRadius: '28px',
-  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
-  color: '#ffffff',
-  boxShadow: '0 24px 60px rgba(29,78,216,0.16)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  background: 'linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
+  color: '#0f172a',
+  boxShadow: '0 16px 36px rgba(15,23,42,0.06)',
+  border: '1px solid #e2e8f0',
 },
 
 movimentosHeroMobile: {
@@ -1454,7 +1450,7 @@ movimentosHeroEyebrow: {
   fontSize: '12px',
   fontWeight: '800',
   letterSpacing: '2px',
-  opacity: 0.82,
+  color: '#64748b',
 },
 
 movimentosHeroTitle: {
@@ -1473,12 +1469,20 @@ movimentosHeroText: {
   marginTop: '14px',
   fontSize: '16px',
   lineHeight: 1.65,
-  color: 'rgba(255,255,255,0.86)',
+  color: '#64748b',
 },
 
 movimentosHeroTextMobile: {
   fontSize: '15px',
   lineHeight: 1.55,
+},
+
+movimentosQuickPanel: {
+  background: '#ffffff',
+  borderRadius: '28px',
+  padding: '26px',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 14px 32px rgba(15,23,42,0.05)',
 },
 
 movimentosStatsGrid: {
@@ -1539,13 +1543,36 @@ movimentosStatSub: {
 },
 
 movimentosPanel: {
-  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  background: '#ffffff',
   borderRadius: '28px',
   padding: '26px',
-  border: '1px solid rgba(226,232,240,0.9)',
-  boxShadow: '0 20px 42px rgba(15,23,42,0.06)',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 14px 32px rgba(15,23,42,0.05)',
 },
 
+movimentosPlusBig: {
+  border: 'none',
+  borderRadius: '16px',
+  padding: '14px 18px',
+  fontWeight: '900',
+  fontSize: '15px',
+  cursor: 'pointer',
+  color: '#ffffff',
+  background: '#059669',
+  boxShadow: '0 10px 20px rgba(16,185,129,0.14)',
+},
+
+movimentosMinusBig: {
+  border: 'none',
+  borderRadius: '16px',
+  padding: '14px 18px',
+  fontWeight: '900',
+  fontSize: '15px',
+  cursor: 'pointer',
+  color: '#ffffff',
+  background: '#dc2626',
+  boxShadow: '0 10px 20px rgba(239,68,68,0.14)',
+},
 movimentosPanelHeader: {
   display: 'flex',
   justifyContent: 'space-between',
@@ -1629,12 +1656,12 @@ materiaisHero: {
   justifyContent: 'space-between',
   alignItems: 'flex-end',
   gap: '24px',
-  padding: '30px 34px',
+  padding: '28px 32px',
   borderRadius: '28px',
-  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
-  color: '#ffffff',
-  boxShadow: '0 24px 60px rgba(29,78,216,0.16)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  background: 'linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
+  color: '#0f172a',
+  boxShadow: '0 18px 40px rgba(15,23,42,0.06)',
+  border: '1px solid rgba(226,232,240,0.95)',
 },
 
 materiaisHeroMobile: {
@@ -1647,7 +1674,7 @@ materiaisHeroEyebrow: {
   fontSize: '12px',
   fontWeight: '800',
   letterSpacing: '2px',
-  opacity: 0.82,
+  color: '#64748b',
 },
 
 materiaisHeroTitle: {
@@ -1666,7 +1693,7 @@ materiaisHeroText: {
   marginTop: '14px',
   fontSize: '16px',
   lineHeight: 1.65,
-  color: 'rgba(255,255,255,0.86)',
+  color: '#64748b',
 },
 
 materiaisHeroTextMobile: {
@@ -1675,13 +1702,12 @@ materiaisHeroTextMobile: {
 },
 
 materiaisFiltrosPanel: {
-  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  background: '#ffffff',
   borderRadius: '24px',
   padding: '22px',
-  border: '1px solid rgba(226,232,240,0.9)',
-  boxShadow: '0 18px 38px rgba(15,23,42,0.06)',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 12px 28px rgba(15,23,42,0.05)',
 },
-
 materiaisFiltrosGrid: {
   display: 'grid',
   gridTemplateColumns: '2fr 1fr',
@@ -1693,11 +1719,11 @@ materiaisFiltrosGridMobile: {
 },
 
 materiaisPanel: {
-  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  background: '#ffffff',
   borderRadius: '28px',
   padding: '26px',
-  border: '1px solid rgba(226,232,240,0.9)',
-  boxShadow: '0 20px 42px rgba(15,23,42,0.06)',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 14px 32px rgba(15,23,42,0.05)',
 },
 
 materiaisPanelHeader: {
@@ -1799,12 +1825,12 @@ adicionarHero: {
   justifyContent: 'space-between',
   alignItems: 'flex-end',
   gap: '24px',
-  padding: '30px 34px',
+  padding: '28px 32px',
   borderRadius: '28px',
-  background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #2563eb 100%)',
-  color: '#ffffff',
-  boxShadow: '0 24px 60px rgba(29,78,216,0.16)',
-  border: '1px solid rgba(255,255,255,0.06)',
+  background: 'linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
+  color: '#0f172a',
+  boxShadow: '0 18px 40px rgba(15,23,42,0.06)',
+  border: '1px solid rgba(226,232,240,0.95)',
 },
 
 adicionarHeroMobile: {
@@ -1817,7 +1843,7 @@ adicionarHeroEyebrow: {
   fontSize: '12px',
   fontWeight: '800',
   letterSpacing: '2px',
-  opacity: 0.82,
+  color: '#64748b',
 },
 
 adicionarHeroTitle: {
@@ -1836,7 +1862,7 @@ adicionarHeroText: {
   marginTop: '14px',
   fontSize: '16px',
   lineHeight: 1.65,
-  color: 'rgba(255,255,255,0.86)',
+  color: '#64748b',
 },
 
 adicionarHeroTextMobile: {
@@ -1845,11 +1871,11 @@ adicionarHeroTextMobile: {
 },
 
 adicionarPanel: {
-  background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.96) 100%)',
+  background: '#ffffff',
   borderRadius: '28px',
   padding: '26px',
-  border: '1px solid rgba(226,232,240,0.9)',
-  boxShadow: '0 20px 42px rgba(15,23,42,0.06)',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 14px 32px rgba(15,23,42,0.05)',
 },
 
 adicionarPanelHeader: {
@@ -1894,20 +1920,19 @@ adicionarModoGridMobile: {
 adicionarModoButton: {
   padding: '14px 16px',
   borderRadius: '16px',
-  border: '1px solid #dbeafe',
-  background: '#ffffff',
-  color: '#1d4ed8',
+  border: '1px solid #e2e8f0',
+  background: '#f8fafc',
+  color: '#334155',
   fontWeight: '800',
   fontSize: '14px',
   cursor: 'pointer',
-  boxShadow: '0 8px 18px rgba(59,130,246,0.06)',
 },
 
 adicionarModoButtonActive: {
-  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+  background: '#1d4ed8',
   color: '#ffffff',
-  border: '1px solid #2563eb',
-  boxShadow: '0 14px 24px rgba(37,99,235,0.18)',
+  border: '1px solid #1d4ed8',
+  boxShadow: '0 10px 20px rgba(37,99,235,0.16)',
 },
 
 adicionarSection: {
@@ -2108,7 +2133,7 @@ materiaisQuickPlus: {
   height: '36px',
   borderRadius: '12px',
   border: 'none',
-  background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+  background: '#059669',
   color: '#ffffff',
   fontSize: '20px',
   fontWeight: '900',
@@ -2120,7 +2145,7 @@ materiaisQuickMinus: {
   height: '36px',
   borderRadius: '12px',
   border: 'none',
-  background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+  background: '#dc2626',
   color: '#ffffff',
   fontSize: '20px',
   fontWeight: '900',
@@ -2149,5 +2174,180 @@ materiaisFiltroInfo: {
   border: '1px solid #bfdbfe',
   fontSize: '14px',
   lineHeight: 1.5,
+},
+
+materialDetalheHero: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  gap: '24px',
+  padding: '28px 32px',
+  borderRadius: '28px',
+  background: 'linear-gradient(180deg, #ffffff 0%, #f8fbff 100%)',
+  color: '#0f172a',
+  boxShadow: '0 16px 36px rgba(15,23,42,0.06)',
+  border: '1px solid #e2e8f0',
+},
+
+materialDetalheHeroMobile: {
+  flexDirection: 'column',
+  alignItems: 'stretch',
+  padding: '22px 20px',
+},
+
+materialDetalheEyebrow: {
+  margin: '0 0 10px 0',
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '2px',
+  color: '#64748b',
+},
+
+materialDetalheTitle: {
+  margin: 0,
+  fontSize: '44px',
+  fontWeight: '900',
+  letterSpacing: '-1.2px',
+  lineHeight: 1.04,
+  color: '#0f172a',
+},
+
+materialDetalheTitleMobile: {
+  fontSize: '32px',
+},
+
+materialDetalheText: {
+  marginTop: '14px',
+  fontSize: '16px',
+  lineHeight: 1.65,
+  color: '#64748b',
+  maxWidth: '720px',
+},
+
+materialDetalheHeroBadges: {
+  display: 'flex',
+  gap: '10px',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+},
+
+materialDetalheStatsGrid: {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+  gap: '18px',
+},
+
+materialDetalheStatsGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+materialDetalheStatCard: {
+  background: '#ffffff',
+  borderRadius: '24px',
+  padding: '24px',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 14px 32px rgba(15,23,42,0.05)',
+},
+
+materialDetalheStatLabel: {
+  margin: '0 0 10px 0',
+  fontSize: '14px',
+  color: '#64748b',
+  fontWeight: '800',
+},
+
+materialDetalheStatValue: {
+  margin: 0,
+  fontSize: '40px',
+  lineHeight: 1,
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-1px',
+},
+
+materialDetalheStatSub: {
+  marginTop: '10px',
+  color: '#64748b',
+  fontSize: '14px',
+  lineHeight: 1.5,
+},
+
+materialDetalheMainGrid: {
+  display: 'grid',
+  gridTemplateColumns: '1.1fr 0.9fr',
+  gap: '20px',
+  alignItems: 'start',
+},
+
+materialDetalheMainGridMobile: {
+  gridTemplateColumns: '1fr',
+},
+
+materialDetalhePanel: {
+  background: '#ffffff',
+  borderRadius: '28px',
+  padding: '26px',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 14px 32px rgba(15,23,42,0.05)',
+},
+
+materialDetalhePanelHeader: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  gap: '16px',
+  marginBottom: '18px',
+},
+
+materialDetalhePanelEyebrow: {
+  margin: 0,
+  fontSize: '12px',
+  fontWeight: '800',
+  letterSpacing: '1.8px',
+  color: '#94a3b8',
+},
+
+materialDetalhePanelTitle: {
+  margin: '8px 0 0 0',
+  fontSize: '28px',
+  fontWeight: '900',
+  color: '#0f172a',
+  letterSpacing: '-0.7px',
+},
+
+materialDetalheInfoList: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '14px',
+},
+
+materialDetalheInfoItem: {
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: '20px',
+  padding: '14px 16px',
+  borderRadius: '18px',
+  backgroundColor: '#f8fafc',
+  border: '1px solid #e2e8f0',
+},
+
+materialDetalheInfoLabel: {
+  color: '#64748b',
+  fontWeight: '700',
+  fontSize: '14px',
+},
+
+materialDetalheInfoValue: {
+  color: '#0f172a',
+  fontWeight: '800',
+  fontSize: '14px',
+  textAlign: 'right',
+},
+
+materialDetalheActions: {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  marginTop: '14px',
 },
 }
