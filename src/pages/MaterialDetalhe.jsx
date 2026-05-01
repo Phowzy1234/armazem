@@ -1,28 +1,31 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { supabase } from '../Lib/supabase'
 import { styles } from '../styles/styles'
 import { getAuthUserId } from '../Lib/authUser'
 
 function MaterialDetalhe() {
   const { id } = useParams()
+  const navigate = useNavigate()
 
   const [material, setMaterial] = useState(null)
-  const [movimentos, setMovimentos] = useState([])
-  const [erro, setErro] = useState('')
-  const [mensagem, setMensagem] = useState('')
-
-  const [nome, setNome] = useState('')
-  const [descricao, setDescricao] = useState('')
-  const [unidade, setUnidade] = useState('')
-  const [stockMinimo, setStockMinimo] = useState('')
-
   const [stockSala1, setStockSala1] = useState(0)
   const [stockSala2, setStockSala2] = useState(0)
-  const [stockTotal, setStockTotal] = useState(0)
+  const [erro, setErro] = useState('')
+  const [mensagem, setMensagem] = useState('')
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
+
+  const [novoEstado, setNovoEstado] = useState('Novo')
 
   useEffect(() => {
     carregarTudo()
+
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 900)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [id])
 
   async function carregarTudo() {
@@ -41,65 +44,56 @@ function MaterialDetalhe() {
     }
 
     setMaterial(materialData)
-    setNome(materialData.nome || '')
-    setDescricao(materialData.descricao || '')
-    setUnidade(materialData.unidade || '')
-    setStockMinimo(materialData.stock_minimo || 0)
+    setNovoEstado(materialData.estado || 'Novo')
 
-    const { data: movimentosData, error: movimentosError } = await supabase
+    const { data: movimentos, error: movimentosError } = await supabase
       .from('movimentos_stock')
-      .select(`
-        id,
-        tipo,
-        quantidade,
-        sala_id,
-        criado_em,
-        utilizadores (
-          id,
-          nome
-        )
-      `)
+      .select('tipo, quantidade, sala_id')
       .eq('material_id', id)
-      .order('criado_em', { ascending: false })
 
     if (movimentosError) {
       setErro(movimentosError.message)
       return
     }
 
-    setMovimentos(movimentosData || [])
+    let totalSala1 = 0
+    let totalSala2 = 0
 
-    let sala1 = 0
-    let sala2 = 0
+    ;(movimentos || []).forEach((movimento) => {
+      const quantidade = Number(movimento.quantidade)
 
-    ;(movimentosData || []).forEach((movimento) => {
-      const valor =
-        movimento.tipo === 'entrada'
-          ? Number(movimento.quantidade)
-          : -Number(movimento.quantidade)
+      if (movimento.sala_id === 1) {
+        totalSala1 += movimento.tipo === 'entrada' ? quantidade : -quantidade
+      }
 
-      if (movimento.sala_id === 1) sala1 += valor
-      if (movimento.sala_id === 2) sala2 += valor
+      if (movimento.sala_id === 2) {
+        totalSala2 += movimento.tipo === 'entrada' ? quantidade : -quantidade
+      }
     })
 
-    setStockSala1(sala1)
-    setStockSala2(sala2)
-    setStockTotal(sala1 + sala2)
+    setStockSala1(totalSala1)
+    setStockSala2(totalSala2)
   }
 
-  async function guardarAlteracoes(e) {
-    e.preventDefault()
+  function estadoFisico(materialAtual) {
+    if (!materialAtual || materialAtual.estado === 'Novo') {
+      return { texto: 'Novo', estilo: styles.estadoNovo }
+    }
+
+    if (materialAtual.estado === 'Usado') {
+      return { texto: 'Usado', estilo: styles.estadoUsado }
+    }
+
+    return { texto: 'Obsoleto', estilo: styles.estadoObsoleto }
+  }
+
+  async function alterarEstado() {
     setErro('')
     setMensagem('')
 
     const { error } = await supabase
       .from('materiais')
-      .update({
-        nome,
-        descricao,
-        unidade,
-        stock_minimo: Number(stockMinimo || 0),
-      })
+      .update({ estado: novoEstado })
       .eq('id', id)
 
     if (error) {
@@ -107,223 +101,234 @@ function MaterialDetalhe() {
       return
     }
 
-    setMensagem('Material atualizado com sucesso.')
+    setMensagem('Estado do material atualizado com sucesso.')
     carregarTudo()
   }
 
   async function removerDefinitivamenteDoStock() {
-  setErro('')
-  setMensagem('')
+    setErro('')
+    setMensagem('')
 
-  const utilizadorId = await getAuthUserId()
+    const utilizadorId = await getAuthUserId()
 
-  if (!utilizadorId) {
-    setErro('Não foi possível identificar o utilizador autenticado.')
-    return
-  }
-
-  const confirmar = window.confirm(
-    'Tens a certeza que queres remover este material definitivamente do stock? O sistema vai retirar todo o stock das salas e arquivar o material.'
-  )
-
-  if (!confirmar) return
-
-  const movimentosParaInserir = []
-
-  if (stockSala1 > 0) {
-    movimentosParaInserir.push({
-      material_id: id,
-      sala_id: 1,
-      tipo: 'saida',
-      quantidade: Number(stockSala1),
-      utilizador_auth_id: utilizadorId,
-    })
-  }
-
-  if (stockSala2 > 0) {
-    movimentosParaInserir.push({
-      material_id: id,
-      sala_id: 2,
-      tipo: 'saida',
-      quantidade: Number(stockSala2),
-      utilizador_auth_id: utilizadorId,
-    })
-  }
-
-  if (movimentosParaInserir.length > 0) {
-    const { error: erroMovimentos } = await supabase
-      .from('movimentos_stock')
-      .insert(movimentosParaInserir)
-
-    if (erroMovimentos) {
-      setErro(erroMovimentos.message)
+    if (!utilizadorId) {
+      setErro('Não foi possível identificar o utilizador autenticado.')
       return
     }
+
+    const confirmar = window.confirm(
+      'Tens a certeza que queres remover este material definitivamente do stock? O sistema vai retirar todo o stock das salas e arquivar o material.'
+    )
+
+    if (!confirmar) return
+
+    const movimentosParaInserir = []
+
+    if (stockSala1 > 0) {
+      movimentosParaInserir.push({
+        material_id: Number(id),
+        sala_id: 1,
+        tipo: 'saida',
+        quantidade: Number(stockSala1),
+        utilizador_auth_id: utilizadorId,
+      })
+    }
+
+    if (stockSala2 > 0) {
+      movimentosParaInserir.push({
+        material_id: Number(id),
+        sala_id: 2,
+        tipo: 'saida',
+        quantidade: Number(stockSala2),
+        utilizador_auth_id: utilizadorId,
+      })
+    }
+
+    if (movimentosParaInserir.length > 0) {
+      const { error: erroMovimentos } = await supabase
+        .from('movimentos_stock')
+        .insert(movimentosParaInserir)
+
+      if (erroMovimentos) {
+        setErro(erroMovimentos.message)
+        return
+      }
+    }
+
+    const { error: erroArquivar } = await supabase
+      .from('materiais')
+      .update({ ativo: false })
+      .eq('id', id)
+
+    if (erroArquivar) {
+      setErro(erroArquivar.message)
+      return
+    }
+
+    setMensagem('Material removido definitivamente do stock com sucesso.')
+    navigate('/materiais')
   }
-
-  const { error: erroArquivar } = await supabase
-    .from('materiais')
-    .update({ ativo: false })
-    .eq('id', id)
-
-  if (erroArquivar) {
-    setErro(erroArquivar.message)
-    return
-  }
-
-  setMensagem('Material removido definitivamente do stock com sucesso.')
-  carregarTudo()
-}
 
   if (!material) {
     return (
       <div style={styles.pageContent}>
-        {erro ? <div style={styles.alertError}>Erro: {erro}</div> : <p>A carregar...</p>}
+        {erro ? (
+          <div style={styles.alertError}>Erro: {erro}</div>
+        ) : (
+          <div style={styles.infoBox}>
+            <p style={styles.infoText}>A carregar material...</p>
+          </div>
+        )}
       </div>
     )
   }
 
+  const estado = estadoFisico(material)
+  const total = Number(stockSala1 || 0) + Number(stockSala2 || 0)
+
   return (
     <div style={styles.pageContent}>
-      <div style={styles.sectionHeader}>
-        <h1 style={styles.title}>{material.nome}</h1>
-        <p style={styles.subtitle}>
-          Detalhe completo do material, stock e histórico.
-        </p>
-      </div>
+      <section
+        style={{
+          ...styles.materialDetalheHero,
+          ...(isMobile ? styles.materialDetalheHeroMobile : {}),
+        }}
+      >
+        <div>
+          <p style={styles.materialDetalheEyebrow}>DETALHE DO MATERIAL</p>
+          <h1
+            style={{
+              ...styles.materialDetalheTitle,
+              ...(isMobile ? styles.materialDetalheTitleMobile : {}),
+            }}
+          >
+            {material.nome}
+          </h1>
+          <p style={styles.materialDetalheText}>
+            {material.descricao || 'Sem descrição disponível.'}
+          </p>
+        </div>
+
+        <div style={styles.materialDetalheHeroBadges}>
+          <span style={styles.salaCardBadge}>{material.unidade}</span>
+          <span
+            style={{
+              ...styles.materiaisEstadoBase,
+              ...estado.estilo,
+            }}
+          >
+            {estado.texto}
+          </span>
+        </div>
+      </section>
 
       {erro && <div style={styles.alertError}>Erro: {erro}</div>}
       {mensagem && <div style={styles.alertSuccess}>{mensagem}</div>}
 
-      <div style={styles.dashboardHighlightGrid}>
-        <div style={{ ...styles.highlightCard, ...styles.highlightInfo }}>
-          <p style={styles.highlightLabel}>Sala DSTI</p>
-          <h3 style={styles.highlightValue}>{stockSala1}</h3>
-          <p style={styles.highlightText}>{material.unidade}</p>
+      <section
+        style={{
+          ...styles.materialDetalheStatsGrid,
+          ...(isMobile ? styles.materialDetalheStatsGridMobile : {}),
+        }}
+      >
+        <div style={styles.materialDetalheStatCard}>
+          <p style={styles.materialDetalheStatLabel}>Sala DSTI</p>
+          <h3 style={styles.materialDetalheStatValue}>{stockSala1}</h3>
+          <p style={styles.materialDetalheStatSub}>Stock atual nesta sala</p>
         </div>
 
-        <div style={{ ...styles.highlightCard, ...styles.highlightSuccess }}>
-          <p style={styles.highlightLabel}>Armazem</p>
-          <h3 style={styles.highlightValue}>{stockSala2}</h3>
-          <p style={styles.highlightText}>{material.unidade}</p>
+        <div style={styles.materialDetalheStatCard}>
+          <p style={styles.materialDetalheStatLabel}>Armazém</p>
+          <h3 style={styles.materialDetalheStatValue}>{stockSala2}</h3>
+          <p style={styles.materialDetalheStatSub}>Stock atual nesta sala</p>
         </div>
 
-        <div style={{ ...styles.highlightCard, ...styles.highlightWarning }}>
-          <p style={styles.highlightLabel}>Stock total</p>
-          <h3 style={styles.highlightValue}>{stockTotal}</h3>
-          <p style={styles.highlightText}>{material.unidade}</p>
+        <div style={styles.materialDetalheStatCard}>
+          <p style={styles.materialDetalheStatLabel}>Stock total</p>
+          <h3 style={styles.materialDetalheStatValue}>
+            {total} {material.unidade}
+          </h3>
+          <p style={styles.materialDetalheStatSub}>Quantidade global disponível</p>
         </div>
+      </section>
 
-        <div style={{ ...styles.highlightCard, ...styles.highlightDanger }}>
-          <p style={styles.highlightLabel}>Stock mínimo</p>
-          <h3 style={styles.highlightValue}>{material.stock_minimo || 0}</h3>
-          <p style={styles.highlightText}>Valor de alerta</p>
-        </div>
-      </div>
+      <section
+        style={{
+          ...styles.materialDetalheMainGrid,
+          ...(isMobile ? styles.materialDetalheMainGridMobile : {}),
+        }}
+      >
+        <div style={styles.materialDetalhePanel}>
+          <div style={styles.materialDetalhePanelHeader}>
+            <div>
+              <p style={styles.materialDetalhePanelEyebrow}>INFORMAÇÃO</p>
+              <h3 style={styles.materialDetalhePanelTitle}>Dados do material</h3>
+            </div>
+          </div>
 
-      <div style={styles.dashboardMainGrid}>
-        <div style={styles.dashboardColumn}>
-          <div style={styles.formCard}>
-            <h3 style={styles.infoTitle}>Editar material</h3>
+          <div style={styles.materialDetalheInfoList}>
+            <div style={styles.materialDetalheInfoItem}>
+              <span style={styles.materialDetalheInfoLabel}>Nome</span>
+              <span style={styles.materialDetalheInfoValue}>{material.nome}</span>
+            </div>
 
-            <form onSubmit={guardarAlteracoes}>
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Nome</label>
-                <input
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                  style={styles.input}
-                />
-              </div>
+            <div style={styles.materialDetalheInfoItem}>
+              <span style={styles.materialDetalheInfoLabel}>Descrição</span>
+              <span style={styles.materialDetalheInfoValue}>
+                {material.descricao || 'Sem descrição'}
+              </span>
+            </div>
 
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Descrição</label>
-                <input
-                  value={descricao}
-                  onChange={(e) => setDescricao(e.target.value)}
-                  style={styles.input}
-                />
-              </div>
+            <div style={styles.materialDetalheInfoItem}>
+              <span style={styles.materialDetalheInfoLabel}>Unidade</span>
+              <span style={styles.materialDetalheInfoValue}>{material.unidade}</span>
+            </div>
 
-              <div style={styles.twoColumns}>
-                <div style={styles.formGroup}>
-                  <label style={styles.label}>Unidade</label>
-                  <input
-                    value={unidade}
-                    onChange={(e) => setUnidade(e.target.value)}
-                    style={styles.input}
-                  />
-                </div>
-
-                <div style={styles.formGroup}>
-                  <label style={styles.label}>Stock mínimo</label>
-                  <input
-                    type="number"
-                    value={stockMinimo}
-                    onChange={(e) => setStockMinimo(e.target.value)}
-                    style={styles.input}
-                  />
-                </div>
-              </div>
-
-              <button type="submit" style={styles.primaryButton}>
-                Guardar alterações
-              </button>
-
-              <button
-                type="button"
-                onClick={removerDefinitivamenteDoStock}
-                style={styles.dangerButton}
-              >
-                Remover definitivamente do stock
-              </button>
-            </form>
+            <div style={styles.materialDetalheInfoItem}>
+              <span style={styles.materialDetalheInfoLabel}>Stock mínimo</span>
+              <span style={styles.materialDetalheInfoValue}>
+                {material.stock_minimo || 0}
+              </span>
+            </div>
           </div>
         </div>
 
-        <div style={styles.dashboardColumn}>
-          <div style={styles.infoBox}>
-            <h3 style={styles.infoTitle}>Histórico deste material</h3>
+        <div style={styles.materialDetalhePanel}>
+          <div style={styles.materialDetalhePanelHeader}>
+            <div>
+              <p style={styles.materialDetalhePanelEyebrow}>GESTÃO</p>
+              <h3 style={styles.materialDetalhePanelTitle}>Estado e ações</h3>
+            </div>
+          </div>
 
-            {movimentos.length === 0 ? (
-              <p style={styles.infoText}>
-                Ainda não existem movimentos para este material.
-              </p>
-            ) : (
-              <div style={{ overflowX: 'auto' }}>
-                <table style={styles.table}>
-                  <thead>
-                    <tr>
-                      <th style={styles.th}>Tipo</th>
-                      <th style={styles.th}>Sala</th>
-                      <th style={styles.th}>Quantidade</th>
-                      <th style={styles.th}>Utilizador</th>
-                      <th style={styles.th}>Data</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {movimentos.map((movimento) => (
-                      <tr key={movimento.id}>
-                        <td style={styles.td}>{movimento.tipo}</td>
-                        <td style={styles.td}>
-                          {movimento.sala_id === 1 ? 'Sala DSTI' : 'Armazem'}
-                        </td>
-                        <td style={styles.td}>{movimento.quantidade}</td>
-                        <td style={styles.td}>{movimento.utilizadores?.nome || '-'}</td>
-                        <td style={styles.td}>
-                          {movimento.criado_em
-                            ? new Date(movimento.criado_em).toLocaleString('pt-PT')
-                            : '-'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+          <div style={styles.formGroup}>
+            <label style={styles.label}>Estado físico</label>
+            <select
+              value={novoEstado}
+              onChange={(e) => setNovoEstado(e.target.value)}
+              style={styles.input}
+            >
+              <option value="Novo">Novo</option>
+              <option value="Usado">Usado</option>
+              <option value="Obsoleto">Obsoleto</option>
+            </select>
+          </div>
+
+          <div style={styles.materialDetalheActions}>
+            <button type="button" onClick={alterarEstado} style={styles.primaryButton}>
+              Guardar estado
+            </button>
+
+            <button
+              type="button"
+              onClick={removerDefinitivamenteDoStock}
+              style={styles.dangerButton}
+            >
+              Remover definitivamente
+            </button>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

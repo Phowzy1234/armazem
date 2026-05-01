@@ -27,7 +27,7 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
     const utilizadorId = await getAuthUserId()
 
     if (!utilizadorId) {
-      setErro('Seleciona um utilizador no topo da aplicação.')
+      setErro('Não foi possível identificar o utilizador autenticado.')
       return
     }
 
@@ -69,12 +69,35 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
     }
   }
 
+  function estadoFisico(item) {
+    if (item.estado === 'Usado') {
+      return { texto: 'Usado', estilo: styles.estadoUsado }
+    }
+
+    if (item.estado === 'Obsoleto') {
+      return { texto: 'Obsoleto', estilo: styles.estadoObsoleto }
+    }
+
+    return { texto: 'Novo', estilo: styles.estadoNovo }
+  }
+
   return (
     <div style={styles.pageContent}>
-      <div style={styles.sectionHeader}>
-        <h1 style={styles.title}>{nomeSala}</h1>
-        <p style={styles.subtitle}>Inventário atual desta sala.</p>
-      </div>
+      <section style={styles.salaHero}>
+        <div>
+          <p style={styles.salaHeroEyebrow}>INVENTÁRIO</p>
+          <h1 style={styles.salaHeroTitle}>{nomeSala}</h1>
+          <p style={styles.salaHeroText}>
+            Consulta o stock atual desta sala e faz ajustes rápidos sem sair da página.
+          </p>
+        </div>
+
+        <div style={styles.salaHeroActions}>
+          <Link to="/adicionar" style={styles.dashboardPrimaryAction}>
+            Adicionar stock
+          </Link>
+        </div>
+      </section>
 
       {erro && <div style={styles.alertError}>Erro: {erro}</div>}
       {mensagem && <div style={styles.alertSuccess}>{mensagem}</div>}
@@ -84,63 +107,89 @@ function InventarioLista({ lista, nomeSala, salaId, onAtualizar }) {
           <p style={styles.emptyText}>Não existem materiais nesta sala.</p>
         </div>
       ) : (
-        <div style={styles.grid}>
-          {lista.map((item) => (
-            <div key={item.id} style={styles.card}>
-              <div style={styles.cardTop}>
-                <h3 style={styles.cardTitle}>{item.nome}</h3>
-                <span style={styles.badge}>{item.unidade}</span>
-              </div>
+        <div style={styles.salaGrid}>
+          {lista.map((item) => {
+            const fisico = estadoFisico(item)
 
-              <p style={styles.stockValue}>
-                {item.quantidade} <span style={styles.stockUnit}>{item.unidade}</span>
-              </p>
+            return (
+              <div key={item.id} style={styles.salaCard}>
+                <div style={styles.salaCardTop}>
+                  <div>
+                    <h3 style={styles.salaCardTitle}>{item.nome}</h3>
+                    <p style={styles.salaCardSub}>
+                      {item.descricao || 'Sem descrição'}
+                    </p>
+                  </div>
 
-              {item.descricao ? (
-                <p style={styles.cardDescription}>{item.descricao}</p>
-              ) : (
-                <p style={styles.cardDescriptionMuted}>Sem descrição.</p>
-              )}
-
-              <div style={styles.quickActionBox}>
-                <label style={styles.quickActionLabel}>Quantidade</label>
-
-                <div style={styles.quickActionRow}>
-                  <input
-                    type="number"
-                    min="1"
-                    value={getQuantidade(item.id)}
-                    onChange={(e) => setQuantidade(item.id, e.target.value)}
-                    style={styles.quickQuantityInput}
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => moverStock(item, 'saida')}
-                    style={styles.minusButton}
-                    title="Retirar stock"
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '8px',
+                      alignItems: 'flex-end',
+                    }}
                   >
-                    −
-                  </button>
+                    <span style={styles.salaCardBadge}>{item.unidade}</span>
 
-                  <button
-                    type="button"
-                    onClick={() => moverStock(item, 'entrada')}
-                    style={styles.plusButton}
-                    title="Adicionar stock"
-                  >
-                    +
-                  </button>
+                    <span
+                      style={{
+                        ...styles.materiaisEstadoBase,
+                        ...fisico.estilo,
+                      }}
+                    >
+                      {fisico.texto}
+                    </span>
+                  </div>
+                </div>
+
+                <div style={styles.salaStockBox}>
+                  <p style={styles.salaStockLabel}>Stock atual</p>
+                  <h2 style={styles.salaStockValue}>
+                    {item.quantidade}{' '}
+                    <span style={styles.salaStockUnit}>{item.unidade}</span>
+                  </h2>
+                </div>
+
+                <div style={styles.salaActionSection}>
+                  <label style={styles.quickActionLabel}>Quantidade</label>
+
+                  <div style={styles.quickActionRow}>
+                    <input
+                      type="number"
+                      min="1"
+                      value={getQuantidade(item.id)}
+                      onChange={(e) => setQuantidade(item.id, e.target.value)}
+                      style={styles.quickQuantityInput}
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => moverStock(item, 'saida')}
+                      style={styles.minusButton}
+                      title="Retirar stock"
+                    >
+                      −
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => moverStock(item, 'entrada')}
+                      style={styles.plusButton}
+                      title="Adicionar stock"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
 
       <div style={styles.addNewMaterialBox}>
         <p style={styles.addNewMaterialText}>
-          Adiciona materias novos
+          Não encontras o material que precisas nesta sala?
         </p>
 
         <Link to="/adicionar" style={styles.primaryButtonLink}>

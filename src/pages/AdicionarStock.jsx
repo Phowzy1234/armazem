@@ -13,15 +13,24 @@ function AdicionarStock() {
   const [descricao, setDescricao] = useState('')
   const [unidade, setUnidade] = useState('')
   const [stockMinimo, setStockMinimo] = useState('')
+  const [estado, setEstado] = useState('Novo')
   const [salaId, setSalaId] = useState('')
   const [quantidade, setQuantidade] = useState('')
 
   const [erro, setErro] = useState('')
   const [mensagem, setMensagem] = useState('')
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 900)
 
   useEffect(() => {
     carregarMateriais()
     carregarSalas()
+
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 900)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   async function carregarMateriais() {
@@ -59,7 +68,7 @@ function AdicionarStock() {
     const utilizadorId = await getAuthUserId()
 
     if (!utilizadorId) {
-      setErro('Seleciona um utilizador no topo da aplicação.')
+      setErro('Não foi possível identificar o utilizador autenticado.')
       return
     }
 
@@ -91,6 +100,7 @@ function AdicionarStock() {
             descricao,
             unidade,
             stock_minimo: Number(stockMinimo || 0),
+            estado,
           },
         ])
         .select()
@@ -128,12 +138,13 @@ function AdicionarStock() {
       return
     }
 
-    setMensagem('Quantidade adicionada com sucesso.')
+    setMensagem('Stock adicionado com sucesso.')
     setMaterialExistenteId('')
     setNome('')
     setDescricao('')
     setUnidade('')
     setStockMinimo('')
+    setEstado('Novo')
     setSalaId('')
     setQuantidade('')
 
@@ -142,48 +153,107 @@ function AdicionarStock() {
 
   return (
     <div style={styles.pageContent}>
-      <div style={styles.sectionHeader}>
-        <h1 style={styles.title}>Adicionar stock</h1>
-        <p style={styles.subtitle}>
-          Escolhe um material existente ou cria um novo.
-        </p>
-      </div>
+      <section
+        style={{
+          ...styles.adicionarHero,
+          ...(isMobile ? styles.adicionarHeroMobile : {}),
+        }}
+      >
+        <div>
+          <p style={styles.adicionarHeroEyebrow}>ENTRADA DE STOCK</p>
+          <h1
+            style={{
+              ...styles.adicionarHeroTitle,
+              ...(isMobile ? styles.adicionarHeroTitleMobile : {}),
+            }}
+          >
+            Adicionar stock
+          </h1>
+          <p
+            style={{
+              ...styles.adicionarHeroText,
+              ...(isMobile ? styles.adicionarHeroTextMobile : {}),
+            }}
+          >
+            Escolhe um material existente ou cria um novo e regista a entrada
+            diretamente na sala pretendida.
+          </p>
+        </div>
+      </section>
 
       {erro && <div style={styles.alertError}>Erro: {erro}</div>}
       {mensagem && <div style={styles.alertSuccess}>{mensagem}</div>}
 
-      <div style={styles.formCard}>
+      <section style={styles.adicionarPanel}>
+        <div style={styles.adicionarPanelHeader}>
+          <div>
+            <p style={styles.adicionarPanelEyebrow}>FORMULÁRIO</p>
+            <h3 style={styles.adicionarPanelTitle}>Registo de entrada</h3>
+          </div>
+        </div>
+
         <form onSubmit={adicionarMaterial}>
-          <div style={styles.formGroup}>
-            <label style={styles.label}>Tipo de material</label>
-            <select
-              value={modoMaterial}
-              onChange={(e) => setModoMaterial(e.target.value)}
-              style={styles.input}
+          <div style={styles.adicionarModoWrap}>
+            <label style={styles.label}>Tipo de registo</label>
+
+            <div
+              style={{
+                ...styles.adicionarModoGrid,
+                ...(isMobile ? styles.adicionarModoGridMobile : {}),
+              }}
             >
-              <option value="novo">Criar material novo</option>
-              <option value="existente">Usar material existente</option>
-            </select>
+              <button
+                type="button"
+                onClick={() => setModoMaterial('novo')}
+                style={{
+                  ...styles.adicionarModoButton,
+                  ...(modoMaterial === 'novo'
+                    ? styles.adicionarModoButtonActive
+                    : {}),
+                }}
+              >
+                Criar material novo
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setModoMaterial('existente')}
+                style={{
+                  ...styles.adicionarModoButton,
+                  ...(modoMaterial === 'existente'
+                    ? styles.adicionarModoButtonActive
+                    : {}),
+                }}
+              >
+                Usar material existente
+              </button>
+            </div>
           </div>
 
           {modoMaterial === 'existente' ? (
-            <div style={styles.formGroup}>
-              <label style={styles.label}>Material existente</label>
-              <select
-                value={materialExistenteId}
-                onChange={(e) => setMaterialExistenteId(e.target.value)}
-                style={styles.input}
-              >
-                <option value="">Seleciona um material</option>
-                {materiais.map((material) => (
-                  <option key={material.id} value={material.id}>
-                    {material.nome} ({material.unidade})
-                  </option>
-                ))}
-              </select>
+            <div style={styles.adicionarSection}>
+              <p style={styles.adicionarSectionTitle}>Selecionar material</p>
+
+              <div style={styles.formGroup}>
+                <label style={styles.label}>Material existente</label>
+                <select
+                  value={materialExistenteId}
+                  onChange={(e) => setMaterialExistenteId(e.target.value)}
+                  style={styles.input}
+                >
+                  <option value="">Seleciona um material</option>
+                  {materiais.map((material) => (
+                    <option key={material.id} value={material.id}>
+                      {material.nome} ({material.unidade})
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           ) : (
-            <>
+            <div style={styles.adicionarSection}>
+              <p style={styles.adicionarSectionTitle}>Criar material</p>
+
               <div style={styles.formGroup}>
                 <label style={styles.label}>Nome do material</label>
                 <input
@@ -191,6 +261,7 @@ function AdicionarStock() {
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   style={styles.input}
+                  placeholder="Ex: Cabos HDMI"
                 />
               </div>
 
@@ -201,10 +272,16 @@ function AdicionarStock() {
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                   style={styles.input}
+                  placeholder="Ex: Cabo HDMI de 2 metros"
                 />
               </div>
 
-              <div style={styles.twoColumns}>
+              <div
+                style={{
+                  ...styles.twoColumns,
+                  ...(isMobile ? styles.adicionarTwoColumnsMobile : {}),
+                }}
+              >
                 <div style={styles.formGroup}>
                   <label style={styles.label}>Unidade</label>
                   <input
@@ -212,6 +289,7 @@ function AdicionarStock() {
                     value={unidade}
                     onChange={(e) => setUnidade(e.target.value)}
                     style={styles.input}
+                    placeholder="Ex: unidades"
                   />
                 </div>
 
@@ -222,45 +300,71 @@ function AdicionarStock() {
                     value={stockMinimo}
                     onChange={(e) => setStockMinimo(e.target.value)}
                     style={styles.input}
+                    placeholder="Ex: 5"
                   />
                 </div>
               </div>
-            </>
+
+              <div style={styles.formGroup}>
+                <label style={styles.label}>Estado</label>
+                <select
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value)}
+                  style={styles.input}
+                >
+                  <option value="Novo">Novo</option>
+                  <option value="Usado">Usado</option>
+                  <option value="Obsoleto">Obsoleto/Avariado</option>
+                </select>
+              </div>
+            </div>
           )}
 
-          <div style={styles.twoColumns}>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>Sala</label>
-              <select
-                value={salaId}
-                onChange={(e) => setSalaId(e.target.value)}
-                style={styles.input}
-              >
-                <option value="">Seleciona uma sala</option>
-                {salas.map((sala) => (
-                  <option key={sala.id} value={sala.id}>
-                    {sala.nome}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div style={styles.adicionarSection}>
+            <p style={styles.adicionarSectionTitle}>Entrada na sala</p>
 
-            <div style={styles.formGroup}>
-              <label style={styles.label}>Quantidade</label>
-              <input
-                type="number"
-                value={quantidade}
-                onChange={(e) => setQuantidade(e.target.value)}
-                style={styles.input}
-              />
+            <div
+              style={{
+                ...styles.twoColumns,
+                ...(isMobile ? styles.adicionarTwoColumnsMobile : {}),
+              }}
+            >
+              <div style={styles.formGroup}>
+                <label style={styles.label}>Sala</label>
+                <select
+                  value={salaId}
+                  onChange={(e) => setSalaId(e.target.value)}
+                  style={styles.input}
+                >
+                  <option value="">Seleciona uma sala</option>
+                  {salas.map((sala) => (
+                    <option key={sala.id} value={sala.id}>
+                      {sala.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div style={styles.formGroup}>
+                <label style={styles.label}>Quantidade</label>
+                <input
+                  type="number"
+                  value={quantidade}
+                  onChange={(e) => setQuantidade(e.target.value)}
+                  style={styles.input}
+                  placeholder="Ex: 10"
+                />
+              </div>
             </div>
           </div>
 
-          <button type="submit" style={styles.primaryButton}>
-            Guardar
-          </button>
+          <div style={styles.adicionarActions}>
+            <button type="submit" style={styles.primaryButton}>
+              Guardar entrada
+            </button>
+          </div>
         </form>
-      </div>
+      </section>
     </div>
   )
 }

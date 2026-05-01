@@ -151,99 +151,49 @@ function Navbar() {
         Adicionar
       </Link>
 
-      <div ref={dropdownSalasRef} style={styles.dropdown}>
-        <button
-          type="button"
-          onClick={toggleMenuSalas}
-          style={{
-            ...styles.navButton,
-            ...(rotaSalaAtiva ? styles.navButtonActive : {}),
-            ...styles.dropdownButton,
-            ...(isMobile ? styles.navButtonMobile : {}),
-          }}
-        >
-          Salas <span style={styles.dropdownArrow}>▾</span>
-        </button>
-
-        {menuSalasAberto && (
-          <div
-            style={{
-              ...styles.dropdownMenu,
-              ...(isMobile ? styles.dropdownMenuMobile : {}),
-            }}
-          >
-            <Link
-              to="/sala1"
-              onClick={fecharTudo}
-              style={{
-                ...styles.dropdownItem,
-                ...(location.pathname === '/sala1'
-                  ? styles.dropdownItemActive
-                  : {}),
-              }}
-            >
-              Sala DSTI
-            </Link>
-
-            <Link
-              to="/sala2"
-              onClick={fecharTudo}
-              style={{
-                ...styles.dropdownItem,
-                ...(location.pathname === '/sala2'
-                  ? styles.dropdownItemActive
-                  : {}),
-              }}
-            >
-              Armazém
-            </Link>
-          </div>
-        )}
-      </div>
     </>
   )
 
   return (
     <header
       style={{
-        ...styles.navbar,
-        ...(isMobile ? styles.navbarMobile : {}),
+        ...styles.navbarPro,
+        ...(isMobile ? styles.navbarProMobile : {}),
       }}
     >
       {isMobile ? (
         <>
-          <div style={styles.mobileHeaderRow}>
-            <div style={styles.navbarBrand}>
-              <h2 style={{ ...styles.logo, ...styles.logoMobile }}>
-                Gestão de Armazém
-              </h2>
+          <div style={styles.navbarProMobileTop}>
+            <div style={styles.navbarProBrandBlock}>
+              <p style={styles.navbarProMiniLabel}>GESTÃO</p>
+              <h2 style={styles.navbarProTitleMobile}>Armazém</h2>
             </div>
 
             <button
               type="button"
               onClick={toggleMenuMobile}
-              style={styles.mobileMenuButton}
+              style={styles.navbarProMenuButton}
             >
               {menuMobileAberto ? 'Fechar' : 'Menu'}
             </button>
           </div>
 
           {menuMobileAberto && (
-            <div style={styles.mobileMenuPanel}>
-              <div style={styles.mobileNavButtons}>{navLinks}</div>
+            <div style={styles.navbarProMobilePanel}>
+              <div style={styles.navbarProMobileLinks}>{navLinks}</div>
 
-              <div style={styles.mobileBottomBar}>
+              <div style={styles.navbarProMobileUserArea}>
                 <div ref={dropdownUserRef} style={styles.dropdown}>
                   <button
                     type="button"
                     onClick={toggleMenuUser}
                     style={{
-                      ...styles.userBadge,
-                      ...styles.dropdownButton,
-                      ...styles.mobileUserButton,
+                      ...styles.navbarProUserButton,
+                      width: '100%',
+                      justifyContent: 'space-between',
                     }}
                   >
-                    {username || 'Utilizador'}
+                    <span>{username || 'Utilizador'}</span>
                     <span style={styles.dropdownArrow}>▾</span>
                   </button>
 
@@ -258,7 +208,7 @@ function Navbar() {
                       <button
                         type="button"
                         onClick={sair}
-                        style={styles.dropdownDangerButton}
+                        style={styles.navbarProLogoutButton}
                       >
                         Sair
                       </button>
@@ -271,27 +221,24 @@ function Navbar() {
         </>
       ) : (
         <>
-          <div style={styles.navbarBrand}>
-            <h2 style={styles.logo}>Gestão de Armazém</h2>
-            <p style={styles.logoSub}>Controlo interno de materiais e stock</p>
+          <div style={styles.navbarProBrand}>
+            <p style={styles.navbarProMiniLabel}>GESTÃO</p>
+            <h2 style={styles.navbarProTitle}>Armazém</h2>
+            <p style={styles.navbarProSub}>Controlo interno de materiais e stock</p>
           </div>
 
-          <div style={styles.navbarCenter}>
-            <div style={styles.navButtons}>{navLinks}</div>
+          <div style={styles.navbarProCenter}>
+            <div style={styles.navbarProNav}>{navLinks}</div>
           </div>
 
-          <div style={styles.navbarRight}>
+          <div style={styles.navbarProRight}>
             <div ref={dropdownUserRef} style={styles.dropdown}>
               <button
                 type="button"
                 onClick={toggleMenuUser}
-                style={{
-                  ...styles.userBadge,
-                  ...styles.dropdownButton,
-                  cursor: 'pointer',
-                }}
+                style={styles.navbarProUserButton}
               >
-                {username || 'Utilizador'}
+                <span>{username || 'Utilizador'}</span>
                 <span style={styles.dropdownArrow}>▾</span>
               </button>
 
@@ -301,13 +248,13 @@ function Navbar() {
                     ...styles.dropdownMenu,
                     right: 0,
                     left: 'auto',
-                    minWidth: '160px',
+                    minWidth: '170px',
                   }}
                 >
                   <button
                     type="button"
                     onClick={sair}
-                    style={styles.dropdownDangerButton}
+                    style={styles.navbarProLogoutButton}
                   >
                     Sair
                   </button>
